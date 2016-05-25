@@ -47,9 +47,9 @@ Podemos então criar uma condição lógica no R assim:
 cond <- dados$Continente == "Ásia"
 ````
 
-A sintaxe dados$Continente indica que estamos nos referindo à coluna Continente da variável dados. A variável dados é um data frame, que você pode imaginar como sendo uma tabela, ou seja, está organizada em linhas e colunas, exatamente como uma planilha Excel. Para acessar qualquer coluna da "tabela" dados basta colocar o caracter $ e depois o nome da coluna. Por exemplo, para acessar a coluna Pais escreveríamos dados$Pais. E assim por diante.
+A sintaxe `dados$Continente` indica que estamos nos referindo à coluna Continente da variável dados. A variável dados é um data frame, que você pode imaginar como sendo uma tabela, ou seja, está organizada em linhas e colunas, exatamente como uma planilha Excel. Para acessar qualquer coluna da "tabela" dados basta colocar o caracter $ e depois o nome da coluna. Por exemplo, para acessar a coluna Pais escreveríamos `dados$Pais`. E assim por diante.
 
-A sintaxe == (isso mesmo, são dois caracteres '=') indicam que queremos fazer uma comparação lógica (verdadeiro ou falso) entre o que está à esquerda de == com o que está à direita de ==. No caso da tabela dados, isso vai ser feito linha a linha. Ou seja: na linha 1 da coluna Continente temos "Ásia"? Não? Então a resposta é FALSE (falso). E na linha 2? É? Então a resposta é TRUE. E na linha 3? Também é? Então a resposta para a linha 3 é outro TRUE. Etc, etc, etc, até a última linha.
+A sintaxe `==` (isso mesmo, são dois caracteres '=') indicam que queremos fazer uma comparação lógica (verdadeiro ou falso) entre o que está à esquerda de `==` com o que está à direita de `==`. No caso da tabela dados, isso vai ser feito linha a linha. Ou seja: na linha 1 da coluna Continente temos "Ásia"? Não? Então a resposta é FALSE (falso). E na linha 2? É? Então a resposta é TRUE. E na linha 3? Também é? Então a resposta para a linha 3 é outro TRUE. Etc, etc, etc, até a última linha.
 O resultado para todas as linhas de dados é portanto: FALSE, TRUE, TRUE, FALSE, FALSE, FALSE.
 Vamos ver? Executando e olhando o valor de cond temos:
 
