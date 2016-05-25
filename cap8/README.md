@@ -6,38 +6,42 @@ Passemos da "teoria" para a prática. Se você fizer uma pesquisa na Internet at
 
 Siga as orientações do site e baixe o mapa do Brasil. No meu caso o link para download do mapa shapefile do Brasil foi esse: http://biogeo.ucdavis.edu/data/gadm2/shp/BRA_adm.zip. O arquivo tem 17,9 Mbytes e depois de descompactado num diretório qualquer seu conteúdo é composto de 21 arquivos sendo 20 deles arquivos com os seguintes nomes:
 
-BRA_admx.csv
-BRA_admx.dbf
-BRA_admx.prj
-BRA_admx.shp
-BRA_admx.shx
+> BRA_admx.csv
+> BRA_admx.dbf
+> BRA_admx.prj
+> BRA_admx.shp
+> BRA_admx.shx
+
 onde o 'x' é 0, 1, 2 ou 3, e o 21 arquivo é o 'read_me.pdf'.
 Veja que há o arquivo com a extensão '.shp'; esse é justamente o tal arquivo shapefile. Todos os demais arquivos são os arquivos "de suporte".
 
 Vamos então carregar os shapefiles:
 
-[code language="r"]
+````r
 library(maptools)
-setwd(&quot;~/Documents/blog/mapaBrasil&quot;) # altere para o local do seu mapa
-mapa0 &lt;- readShapeSpatial(&quot;BRA_adm0.shp&quot;)
-mapa1 &lt;- readShapeSpatial(&quot;BRA_adm1.shp&quot;)
-mapa2 &lt;- readShapeSpatial(&quot;BRA_adm2.shp&quot;)
-mapa3 &lt;- readShapeSpatial(&quot;BRA_adm3.shp&quot;)
-[/code]
+setwd("~/Documents/blog/mapaBrasil") # altere para o local do seu mapa
+mapa0 <- readShapeSpatial("BRA_adm0.shp")
+mapa1 <- readShapeSpatial("BRA_adm1.shp")
+mapa2 <- readShapeSpatial("BRA_adm2.shp")
+mapa3 <- readShapeSpatial("BRA_adm3.shp")
+````
+
 Para você plotar um mapa basta usar o comando 'plot()', assim:
 
-[code language="r" gutter="false"]
+````r
 plot(mapa0)
-[/code]
+````
+
 e você terá o mapa do Brasil com apenas as fronteiras internacionais:
 
 brasil0
 
 se você plotar o mapa1 o resultado já é um pouco diferente:
 
-[code language="r" gutter="false"]
+````r
 plot(mapa1)
-[/code]
+````
+
 resultado:
 
 brasil1
@@ -51,7 +55,7 @@ O mapa3 mal dá pra ver as regiões plotadas, tamanha a quantidade de detalhes!
 OK, mas como é que a gente sabe o que cada mapa contém?
 Pra ver isso podemos explorar a estrutura dos dados de cada shapefile com o comando 'str()' (vou usar o mapa1 que é mais interessante que o mapa0, mas você pode dar uma olhada no que acontece com os outros mapas também):
 
-[code language="r" gutter="false"]
+````r
 > str(mapa1@data)
 'data.frame':	27 obs. of  9 variables:
  $ ID_0     : int  32 32 32 32 32 32 32 32 32 32 ...
@@ -65,11 +69,12 @@ Pra ver isso podemos explorar a estrutura dos dados de cada shapefile com o coma
  $ ENGTYPE_1: Factor w/ 2 levels &quot;Federal District&quot;,..: 2 2 2 2 2 2 1 2 2 2 ...
  - attr(*, &quot;data_types&quot;)= chr  &quot;N&quot; &quot;C&quot; &quot;C&quot; &quot;N&quot; ...
 >
-[/code]
+````
+
 A coluna mais interessante é a NAME_1, que parece conter os nomes dos Estados.
 Vamos dar uma olhada no conteúdo dela com:
 
-[code language="r" gutter="false"]
+````r
 > mapa1@data$NAME_1
  [1] Acre                Alagoas             Amap\xe1            Amazonas
  [5] Bahia               Cear\xe1            Distrito Federal    Esp\xedrito Santo
@@ -80,10 +85,11 @@ Vamos dar uma olhada no conteúdo dela com:
 [25] S\xe3o Paulo        Sergipe             Tocantins
 27 Levels: Acre Alagoas Amap\xe1 Amazonas Bahia Cear\xe1 Distrito Federal ... Tocantins
 >
-[/code]
+````
+
 Se os nomes dos Estados que contém acentos (como Amapá) não aparecem corretamente, não se desespere, é apenas uma questão de "encoding". No nosso caso você pode resolver isso usando o comando 'iconv()' (veja o help do iconv para detalhes):
 
-[code language="r" gutter="false"]
+````r
 > iconv(x, from=&quot;latin1&quot;, to=&quot;UTF8&quot;)
  [1] &quot;Acre&quot;                &quot;Alagoas&quot;             &quot;Amapá&quot;               &quot;Amazonas&quot;
  [5] &quot;Bahia&quot;               &quot;Ceará&quot;               &quot;Distrito Federal&quot;    &quot;Espírito Santo&quot;
@@ -93,10 +99,11 @@ Se os nomes dos Estados que contém acentos (como Amapá) não aparecem corretam
 [21] &quot;Rio Grande do Sul&quot;   &quot;Rondônia&quot;            &quot;Roraima&quot;             &quot;Santa Catarina&quot;
 [25] &quot;São Paulo&quot;           &quot;Sergipe&quot;             &quot;Tocantins&quot;
 >
-[/code]
+````
+
 Para não termos que ficar convertendo toda hora os nomes dos Estados (e facilitar outras tarefas) vamos converter e sobrescrever os dados do mapa1:
 
-[code language="r" gutter="false"]
+````r
 > mapa1@data$NAME_1 &lt;- iconv(mapa1@data$NAME_1, from=&quot;latin1&quot;, to=&quot;UTF8&quot;)
 > mapa1@data$NAME_1
  [1] &quot;Acre&quot;                &quot;Alagoas&quot;             &quot;Amapá&quot;               &quot;Amazonas&quot;
@@ -107,38 +114,45 @@ Para não termos que ficar convertendo toda hora os nomes dos Estados (e facilit
 [21] &quot;Rio Grande do Sul&quot;   &quot;Rondônia&quot;            &quot;Roraima&quot;             &quot;Santa Catarina&quot;
 [25] &quot;São Paulo&quot;           &quot;Sergipe&quot;             &quot;Tocantins&quot;
 >
-[/code]
+````
+
 Agora vamos a um "pulo do gato": e se quisermos plotar somente um Estado, por exemplo, o Estado de São Paulo?
 Primeiro temos que fazer um "filtro" (ou subconjunto, ou subset) só para o Estado de São Paulo (leia o artigo no post anterior).
 
-[code language="r" gutter="false"]
-sp &lt;- mapa1@data$NAME_1 == &quot;São Paulo&quot;
-[/code]
+````r
+sp <- mapa1@data$NAME_1 == "São Paulo"
+````
+
 depois fazemos o subset do mapa só onde ele for TRUE:
 
-[code language="r" gutter="false"]
-mapa_sp &lt;- mapa1[sp,]
-[/code]
+````r
+mapa_sp <- mapa1[sp,]
+````
+
 e plotamos com:
 
-[code language="r" gutter="false"]
+````r
 plot(mapa_sp)
-[/code]
+````
+
 Você pode fazer tudo isso numa linha só, assim:
 
-[code language="r" gutter="false"]
+````r
 plot( mapa1[ mapa1@data$NAME_1 == &quot;São Paulo&quot;  ,] )
-[/code]
+````
+
 Resultado:
+
 saopaulo
 
 Pra finalizar, vamos plotar o mapa do Brasil, o Estado de São Paulo em vermelho e o Estado de Minas Gerais em Azul. Veja como fazemos isso:
 
-[code language="r" gutter="false"]
+````r
 plot(mapa1)
 plot( mapa1[ mapa1@data$NAME_1 == &quot;São Paulo&quot;  ,] , add=TRUE, col=&quot;red&quot;)
 plot( mapa1[ mapa1@data$NAME_1 == &quot;Minas Gerais&quot;  ,] , add=TRUE, col=&quot;blue&quot;)
-[/code]
+````
+
 Resultado:
 
 brasil_sp_minas_color
