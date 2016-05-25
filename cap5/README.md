@@ -37,14 +37,14 @@ Muito bem. E se você quiser ver apenas os países da Ásia?
 Bem, no Excel você marcaria a coluna de 'Continente' (ou todas as colunas), clicaria na tal seta (que abre uma "drop down list") e escolheria apenas "Ásia". Esta operação toda de "point and click" no Excel está criando uma condição lógica mais ou menos assim:
 
 ````r
-&quot;Continente&quot; tem que ser igual a &quot;Ásia&quot;
+"Continente" tem que ser igual a "Ásia"
 ````
 
 E essa condição vai ser 'verdadeira' ou 'falsa' para cada linha de 'dados'.
 Podemos então criar uma condição lógica no R assim:
 
 ````r
-cond &lt;- dados$Continente == &quot;Ásia&quot;
+cond <- dados$Continente == "Ásia"
 ````
 
 A sintaxe dados$Continente indica que estamos nos referindo à coluna Continente da variável dados. A variável dados é um data frame, que você pode imaginar como sendo uma tabela, ou seja, está organizada em linhas e colunas, exatamente como uma planilha Excel. Para acessar qualquer coluna da "tabela" dados basta colocar o caracter $ e depois o nome da coluna. Por exemplo, para acessar a coluna Pais escreveríamos dados$Pais. E assim por diante.
@@ -54,7 +54,7 @@ O resultado para todas as linhas de dados é portanto: FALSE, TRUE, TRUE, FALSE,
 Vamos ver? Executando e olhando o valor de cond temos:
 
 ````r
-> cond &lt;- dados$Continente == &quot;Ásia&quot;
+> cond <- dados$Continente == "Ásia"
 > cond
 [1] FALSE  TRUE  TRUE FALSE FALSE FALSE
 >
@@ -95,7 +95,7 @@ A mesma sintaxe vale para a linha. se você quisesse ver todas as linhas mas só
 Uma outra forma seria:
 
 ````r
-> dados[,&quot;PIB&quot;]
+> dados[,"PIB"]
 [1] 14586736  5815501  5458836  3391641  2671113  2350889
 >
 ````
@@ -105,13 +105,13 @@ onde você explicitamente dá o nome da coluna.
 Finalmente podemos guardar a tabelinha só da Ásia em uma variável, assim:
 
 ````r
-asia &lt;- dados[cond,]
+asia <- dados[cond,]
 ````
 
 E pra conferir executamos e espiamos o valor de asia:
 
 ````r
-> asia &lt;- dados[cond,]
+> asia <- dados[cond,]
 > asia
   Continente  Pais     PIB posicao
 2       Ásia China 5815501       2
@@ -124,16 +124,16 @@ Você pode seguir fazendo mais subconjuntos (mais "filtros"). Por exemplo, quais
 O código completo desse post é esse:
 
 ````r
-link &lt;- &quot;https://dl.dropboxusercontent.com/u/32806032/blog/pib3.csv&quot;
-setwd(&quot;~/Documents/blog&quot;) # ajuste conforme seu caso
-destino &lt;- &quot;pib3.csv&quot;
+link <- "https://dl.dropboxusercontent.com/u/32806032/blog/pib3.csv"
+setwd("~/Documents/blog") # ajuste conforme seu caso
+destino <- "pib3.csv"
 download.file(url = link
              , destfile = destino
-             #, method = &quot;curl&quot; # apenas se você está usando um Mac (OS X).
+             #, method = "curl" # apenas se você está usando um Mac (OS X).
              )
-dados &lt;- read.csv(&quot;pib3.csv&quot;, skip=3) # as 3 primeiras linhas não nos interessam
+dados <- read.csv("pib3.csv", skip=3) # as 3 primeiras linhas não nos interessam
                                       # abra o arquivo num editor simples e veja
-cond &lt;- dados$Continente == &quot;Ásia&quot;
+cond <- dados$Continente == "Ásia"
 ````
 
 É isso.
