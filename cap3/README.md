@@ -227,3 +227,79 @@ Voilà!
 Pode ser que seu arquivo csv tenha também algumas linhas no final que você queira (ou precise) ignorar. O parâmetro 'nrows' pode ser usado para se determinar a quantidade total de linhas a serem lidas. Não vou dar um exemplo detalhado aqui, mas fica a dica.
 
 É isso.
+
+=========
+
+Há muitas coisas para serem ditas sobre o R, mas creio que uma das mais básicas seja a 'leitura de arquivos'.
+
+Passando um nome de arquivo de forma dinâmica.
+
+
+
+Durante a execução do código você quer poder navegar até o diretório onde está o arquivo e selecioná-lo.
+
+Para isso usa-se a função 'file.choose()'.
+
+Código:
+
+arquivo <- file.choose()
+Rode esse script e você verá uma caixa de diálogo padrão do seu sistema operacional que te permite escolher o arquivo.
+
+caixaDialogo
+
+
+
+Suponha então que escolhamos o arquivo 'Kalimba.mp3'.
+
+Ao fazermos isso e clicarmos em 'Open' a váriável 'arquivo' conterá o valor do caminho completo até o arquivo incluindo o nome do arquivo:
+
+> arquivo
+[1] "C:\\Users\\Public\\Music\\Sample Music\\Kalimba.mp3"
+Note que as duas barras invertidas são a forma do R representar a mudança de diretório se seu sistema operacional é Windows.
+
+Suponha agora que queiramos separar o nome do arquivo do nome do caminho de diretórios.
+
+Código:
+
+pedacos <- strsplit(arquivo, "\\\\")
+x <- length(pedacos[[1]])
+nome_arquivo <- pedacos[[1]][x]
+y <- x - 1
+caminho <- paste(pedacos[[1]][1:y], sep="", collapse="/")
+Se você executar passo a passo esse script e for verificando o valor de cada variável teremos:
+
+> pedacos <- strsplit(arquivo, "\\\\")
+> pedacos
+[[1]]
+[1] "C:" "Users" "Public" "Music" "Sample Music" "Kalimba.mp3" 
+
+> x <- length(pedacos[[1]])
+> x
+[1] 6
+> nome_arquivo <- pedacos[[1]][x]
+> nome_arquivo
+[1] "Kalimba.mp3"
+> y <- x - 1
+> y
+[1] 5
+> caminho <- paste(pedacos[[1]][1:y], sep="", collapse="/")
+> caminho
+[1] "C:/Users/Public/Music/Sample Music"
+A função 'strsplit' quebrou o valor da variável 'pedacos' em uma lista de nomes onde cada nome estava separado por uma barra invertida dupla '\'. No código temos 4 barras invertidas porque cada barra tem que ser scaped com uma outra barra (barra invertida é um caracter especial e temos que colocar uma outra barra invertida na frente pra dizer que o próximo caracter deve ser tratado literalmente e não como um "comando").
+
+Veja que 'pedacos' é uma lista. O tamanho da lista é 6 e queremos o último elemento para capturar o nome do arquivo. É o que 'pedacos[[1]][x]' faz.
+
+Todos os outros elementos formam o caminho do arquivo então pegamos todos eles ('pedacos[[1]][1:y]') os colamos ('paste') de volta usando o caracter '/' como "cola". A variável 'caminho' fica então com o resultado. (Experimente fazer sep="x", ou qualquer outra coisa, pra ver o que acontece).
+
+Note que usei '/' porque ela é entendida como separador de diretórios pelo R mesmo no Windows. E também pra mostrar que dá pra usar outra coisa que não o separador inicial \.
+
+Ter o caminho como variável é útil porque o que você pode fazer agora é ajustar o working directory pro mesmo lugar de onde você leu o arquivo. Assim seu script fica um pouco mais flexível e você não precisa se preocupar em ficar ajustando manualmente o working directory dependendo de onde está o arquivo sendo lido.
+
+Ou seja:
+
+> setwd(caminho)
+> getwd()
+[1] "C:/Users/Public/Music/Sample Music"
+É isso.
+
+
