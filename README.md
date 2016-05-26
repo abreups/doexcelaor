@@ -24,6 +24,8 @@ Versão: 0.1
 
 ## Capítulo 7 - Fazendo Tabelas Pivô
 
+## Capítulo - Fazendo Relatórios
+
 ## [Capítulo 8 - Fazendo Mapas](cap8)
 
 ## Capítulo 9 - Fazendo Aplicações Dinâmicas
