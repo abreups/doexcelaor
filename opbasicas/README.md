@@ -18,6 +18,11 @@ tecle Enter e o resultado aparecerá:
 [1] 3
 ````
 
+Seu console deve estar provavelmente assim:
+
+![Console](console1.png)
+
+
 não se preocupe com esse 1 entre colchetes; ele é apenas a forma
 do R indicar a saída do resultado. O que nos interessa é o 3, que 
 é o resultado da soma.
