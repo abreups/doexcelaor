@@ -101,6 +101,77 @@ Mas vamos em frente.
 
 ## Variáveis
 
+No Excel (ou qualquer outro software de planilha eletrônica) a 
+forma usual de se armazenar um valor para poder utilizá-lo mais
+tarde é colocar o valor numa célula. Essa operação é quase que
+intuitiva para quem usa planilhas eletrônicas. Você guarda um certo
+valor na célula A1, um outro valor na célula B1 e na célula C1 você
+coloca uma fórmula que, por exemplo, soma os valores.
+
+No R você guarda valores em variáveis. Uma variável é um "nome", uma 
+palavra que tem que começar com uma letra (não pode começar com um
+número). `banana` é uma palavra que começa com uma letra (`b`), portanto
+pode ser o nome de uma variável. `3tigres` não pode ser nome de 
+variável, pois começa com um número (`3`).
+
+Você guarda um valor na variável `banana` através das seguintes sintaxes:
+
+- sintaxe 1: 
+
+```r
+> banana = 1
+```
+
+- sintaxe 2:
+
+```r
+> banana <- 1
+```
+
+Para descobrir qual valor está guardado na variável `banana`, basta
+digitar o nome da variável na console e bater Enter:
+
+````r
+> banana
+[1] 1
+````
+
+A sintaxe 2 é a mais utilizada quando você pesquisa sobre código
+em R na Internet, então é a que utilizaremos nesse texto.
+
+Vamos guardar um outro valor em outra variável: `laranja`:
+
+````r
+> laranja <- 2
+````
+
+E novamente, para vermos o valor que está guardado na variável 
+`laranja`, escrevemos seu nome na console e Enter
+
+````r
+> laranja
+[1] 2
+````
+
+Agora podemos fazer como fazíamos na planilha: podemos fazer uma operação 
+utilizando as variáveis `banana` e `laranja`. Veja os seguintes
+exemplos:
+
+````r
+banana + laranja
+[1] 3
+> banana / laranja
+[1] 0.5
+> banana**laranja
+[1] 1
+> laranja ** banana
+[1] 2
+> sin(laranja) / cos(banana)
+[1] 1.682942
+> banana == laranja
+[1] FALSE
+
+````
 
 tipos de variáveis
 
