@@ -67,7 +67,8 @@ seguir exatamente como mostrado:
 Erro: não foi possível encontrar a função "qrt"
 ````
 
-O R não conhece essa tal função `qrt`. Opa, era `sqrt`!
+O R não conhece essa tal função `qrt`. Opa, era `sqrt`! A função
+que calcula a raiz quadrada de seu argumento (no caso, o número 2).
 Seta para cima, seta para a esquerda 6 vezes (até o início do comando),
 digite o `s` que faltava, e Enter.
 
@@ -86,9 +87,14 @@ ilustrado na figura a seguir:
 
 ![Histórico](history.png)
 
+Coloque o mouse sobre cada um dos ícones e veja o texto de ajuda que
+aparece. Ele é bem autoexplicativo e você pode brincar à vontade para
+ver o que acontece.
+
+Mas vamos em frente.
 
 
-variáveis
+## Variáveis
 
 
 tipos de variáveis
