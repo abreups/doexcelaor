@@ -158,7 +158,7 @@ utilizando as variáveis `banana` e `laranja`. Veja os seguintes
 exemplos:
 
 ````r
-banana + laranja
+> banana + laranja
 [1] 3
 > banana / laranja
 [1] 0.5
@@ -173,7 +173,32 @@ banana + laranja
 
 ````
 
-tipos de variáveis
+Temos uma soma, uma divisão, duas potenciações e por fim uma comparação que
+diz responde que que o valor guardado em banana não é igual (ou
+seja, é `FALSO`) ao valor guardado em laranja.
+
+Note que numa planilha, os valores das células são posicionais, ou seja,
+a célula A1 (exemplo do primeiro parágrafo) guarda um certo valor e
+a célula B1 guarda outro valor. No R, as variáveis não tem esse
+conceito de "posição" (como as células). Elas estão "na memória do 
+computador", e ponto. Tudo o que estamos fazendo (cálculos, criando
+e usando variáveis) não depende de nada "visual"; você não está vendo
+os valores numa "tabela", você não pode pintar a variável `banana`
+de amarelo e a `laranja` de alaranjado, como tenho certeza de que
+você já deve ter feito isso alguma vez na vida!
+
+Há um ponto sutil (ou não) aqui de diferença entre usar uma planilha
+e o R. Na planilha é provável que, há medida que você vai fazendo
+os cálculos, você já vai pensando em onde colocar as coisas no grid
+da planilha. Já vai pintando as células, formatando o fonte das
+letras, colocando bordas nas células, enquanto vai fazendo sua 
+análise. No R não. Primeiro você faz a análise. Os resultados vão aparecendo
+na console, são um tanto quanto "feinhos", não tem formatação. É isso
+mesmo, o formato, o gráfico, a tabela bonita você só vai fazer lá na
+frente, no final. Calma, vale a pena esperar.
+
+
+## Tipos de variáveis
 
 
 data frames
