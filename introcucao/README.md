@@ -62,5 +62,14 @@ sem menus obscuros para se adivinhar. Um script do R é como ler
 uma receita de bolo, enquanto uma planilha Excel é como olhar o bolo
 pronto (e ter que adivinhar a receita).
 
+Há uma terceira situação que torna o R imbatível: reprodutibilidade.
+Você escreveu um script em R que gera um relatório a partir de um
+arquivo com dados. Mês que vem você recebe uma nova versão dos dados,
+atualizada. Sabe quanto tempo você vai levar para gerar um novo
+relatório com os dados atualizados? Digamos, 2 minutos? OK, OK, 5 minutos.
+Se você tiver que gerar esse relatório todos os dias, quem se importa?
+Fácil! Está tudo pronto. Me dê 200 arquivos com dados para eu gerar
+200 relatórios. Fácil! Não acredita? Então leia esse livro até o fim
+e veja por você mesmo.
 
-bolo (e t
+Vamos lá!
