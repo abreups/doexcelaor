@@ -295,8 +295,8 @@ Deixe-me ressaltar mais uma vez a diferença entre "olhar para a tabela"
 e ter uma tabela armazenada na memória do computador, sem necessariamente
 tê-la numa representação visual (que é o jeito de trabalhar no R).
 
-Vamos criar uma tabela hipotética com pessoas, suas idades, alturas e
-pesos. Seria algo assim:
+Vamos criar uma tabela hipotética com nomes de pessoas, suas idades (em
+anos), alturas (em metros) e pesos (em Kilogramas). Seria algo assim:
 
 Nome   | Idade | Altura | Peso
 -------|-------|--------|-----
@@ -305,5 +305,35 @@ Maria  | 38    | 1.70   | 65
 Pedro  | 20    | 1.60   | 80
 Flávia | 12    | 1.50   | 50
 Alê    | 2     | 0.70   | 20
+
+Seria muito fácil digitar isso em em planilha, não? Dá pra ver o paralelo
+entre linhas e colunas e células na planilha.
+
+Bem, no R vamos representar esses dados numa variável do tipo data frame,
+da seguinte forma:
+
+````r
+pessoas <- data.frame(Nome=c("José", "Maria", "Pedro", "Flávia", "Alê"), Idade=c(40, 38, 20, 12, 2), Altura=c(1.85, 1.70, 1.60, 1.50, 0.70), Peso=c(80, 65, 80, 50, 20))
+> 
+
+Ao digitar esse comando no console, não se preocupe com a mudança de linha.
+Você está digitando tudo numa linha só. À medida que você digita, ao chegar
+no fim da linha, continue digitando como se nada tivesse acontecido e o
+cursor vai passar automaticamente para a "linha de baixo". Só digite
+Enter no final de tudo, para indicar ao R que você terminou o comando.
+
+Se a sua janela de console for larga você deve ter uma linha mais 
+ou menos assim:
+
+![janela larga](pessoas_largo.png)
+
+E se sua janela de console for mais curtinha, você deve ter algo 
+mais parecido com isso:
+
+![janela curta](pessoas_curta.png)
+
+Não importa. É um comando só, numa linha só. E você pode ajustar a largura
+da janela de console com o mouse, clicando na borda dela, segurando
+o clique e arrastando o mouse.
 
 
