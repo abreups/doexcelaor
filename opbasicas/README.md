@@ -238,9 +238,9 @@ Error in idade/laranja : argumento não-numérico para operador binário
 ````
 
 Caramba! O que aconteceu? Bem, tentamos dividir um número por um texto.
-O valor de laranja é numérico, já o valor de idade é texto. Como saber?
+O valor de `laranja` é numérico, já o valor de `idade` é texto. Como saber?
 
-Quando definimos o valor de laranja não colocamos aspas em torno do valor,
+Quando definimos o valor de `laranja` não colocamos aspas em torno do valor,
 mas quando definimos o valor de `idade` colocamos aspas para definir o valor
 de 20. As aspas dizem ao R que o que você está fornecendo são 
 "caracteres de texto".
@@ -263,10 +263,11 @@ do R, assim:
 ````
 
 Existem outros tipos de dados além de "numérico" e "caracter"; por exemplo,
-temos o tipo "lógico". Ese tipo de dado tem apenas 2 valores: verdadeiro ou
+temos o tipo "lógico". Esse tipo de dado tem apenas 2 valores: verdadeiro ou
 falso (`TRUE` e `FALSE`, respectivamente em Inglês).
 
-Quando fizemos a comparação entre os valores de banana e laranja, obtivemos
+Quando fizemos a comparação entre os valores armazenados em `banana`i
+ e `laranja`, obtivemos
 a resposta `FALSE`. Se usarmos a função `class()` no resultado daquela
 operação, veja o que acontece:
 
@@ -282,6 +283,26 @@ as letras F, A, L, S, E.
 Já dá pra fazer muita coisa com esses três tipos de dados, então vamos
 passar para um tipo de variável extremamente importante: data frame.
 
-## data frames
+## Data frames
+
+Data frame é um tipo de estrutura de dados que, para todos os efeitos
+práticos, funciona como uma tabela. Sabe quando você carrega um arquivo
+no Excel e olha para a planilha com as linhas e as colunas cheias de
+valores? Então, no R, aquilo seria representado por um data frame.
+
+Deixe-me ressaltar mais uma vez a diferença entre "olhar para a tabela"
+(que é o que estamos acostumados a fazer na nossa interação com o Excel)
+e ter uma tabela armazenada na memória do computador, sem necessariamente
+tê-la numa representação visual (que é o jeito de trabalhar no R).
+
+Vamos criar uma tabela hipotética com pessoas, suas idades, alturas e
+pesos. Seria algo assim:
+
+> Nome		Idade	Altura	Peso
+> José		40		1.85	80
+> Maria		38		1.70	65
+> Pedro		20		1.60	80
+> Flávia	12		1.50	50
+> Darci		 2		0.70	20
 
 
