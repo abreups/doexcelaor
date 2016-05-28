@@ -433,5 +433,60 @@ nos dá uma amostra dos primeiros valores de cada coluna.
 
 Mas o que é esse tal de 'Factor' que aparece como o tipo de dado
 para a coluna 'Nome'? É simples: 'Factor' é "um tipo de texto", só
-que "categorizado". 
+que "categorizado". Nós temos 5 nomes de pessoas mas 2 nomes são
+iguais (Pedro), então temos 4 "categorias" (Fávia, José, Pedro, Maria).
+Não se preocupe com isso por enquanto.
+
+Como fazemos para nos referir a um determinado elemento do data frame?
+Bem, em uma planilha usamos a notação  "coluna" e "linha". Por exemplo,
+o elemento da primeira linha com a primeira coluna é a célula "A1".
+As letras referem-se às colunas e os números às linhas. O elemento
+da segunda linha e terceira coluna seria o "B3".
+
+Pois bem, no R é o inverso. Primeiro usamos a referência da linha e
+depois o da coluna. Se você se lembra um pouquinho de matrizes (sim,
+aquele assunto que você estudo no Ensino Médio!), o R usa o sistema
+de referência de matrizes, que é linha x coluna.
+
+Portanto, no R, o elemento da primeira linha com a primeira coluna
+é o elemento `[1,1]` (note que usamos colchetes para formar o par).
+Já o elemento da segunda linha e terceira coluna é o `[2,3]`.
+
+Aí então basta colocar o nome do data frame antes dos colchetes
+e pronto!
+
+````r
+> pessoas[1,1]
+[1] José
+Levels: Flávia José Maria Pedro
+> pessoas[2,3]
+[1] 1.7
+> 
+````
+
+`pessoas[1,1]` é o nome do José e `pessoas[2,3]` é a altura da Maria.
+
+Há uma variação no uso de referência que se torna bastante prática
+que é a seguinte: se quisermos todos os elementos de uma linha, basta 
+colocar o número da linha e deixar o número da coluna sem nada. É
+como se estivéssemos dizendo ao R que queremos "todas as colunas"
+para aquela linha. Exemplo: todos os elementos da linha 3:
+
+````r
+> pessoas[3,]
+   Nome Idade Altura Peso
+3 Pedro    20    1.6   80
+> 
+````
+
+É claro que o mesmo funciona no lugar da coluna. Colocamos o valor
+da coluna mas não colocamos nada no valor da linha (ou seja, "todas as
+linhas"). Se quisermos todas as idades (coluna 2):
+
+````r
+> pessoas[,2]
+[1] 40 38 20 12  2
+>
+````
+
 
