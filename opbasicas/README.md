@@ -299,7 +299,7 @@ Vamos criar uma tabela hipotética com pessoas, suas idades, alturas e
 pesos. Seria algo assim:
 
 Nome   | Idade | Altura | Peso
-------------------------------
+-------|-------|--------|-----
 José   | 40    | 1.85   | 80
 Maria  | 38    | 1.70   | 65
 Pedro  | 20    | 1.60   | 80
