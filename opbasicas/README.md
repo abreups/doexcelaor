@@ -298,11 +298,12 @@ tê-la numa representação visual (que é o jeito de trabalhar no R).
 Vamos criar uma tabela hipotética com pessoas, suas idades, alturas e
 pesos. Seria algo assim:
 
-> Nome		Idade	Altura	Peso
-> José		40		1.85	80
-> Maria		38		1.70	65
-> Pedro		20		1.60	80
-> Flávia	12		1.50	50
-> Darci		 2		0.70	20
+Nome   | Idade | Altura | Peso
+------------------------------
+José   | 40    | 1.85   | 80
+Maria  | 38    | 1.70   | 65
+Pedro  | 20    | 1.60   | 80
+Flávia | 12    | 1.50   | 50
+Alê    | 2     | 0.70   | 20
 
 
