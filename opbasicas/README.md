@@ -313,7 +313,7 @@ Bem, no R vamos representar esses dados numa variável do tipo data frame,
 da seguinte forma:
 
 ````r
-pessoas <- data.frame(Nome=c("José", "Maria", "Pedro", "Flávia", "Alê"), Idade=c(40, 38, 20, 12, 2), Altura=c(1.85, 1.70, 1.60, 1.50, 0.70), Peso=c(80, 65, 80, 50, 20))
+> pessoas <- data.frame(Nome=c("José", "Maria", "Pedro", "Flávia", "Alê"), Idade=c(40, 38, 20, 12, 2), Altura=c(1.85, 1.70, 1.60, 1.50, 0.70), Peso=c(80, 65, 80, 50, 20))
 > 
 ````
 
@@ -336,5 +336,79 @@ mais parecido com isso:
 Não importa. É um comando só, numa linha só. E você pode ajustar a largura
 da janela de console com o mouse, clicando na borda dela, segurando
 o clique e arrastando o mouse.
+
+Muito bem. Nesse ponto temos uma variável chamada `pessoas` que está
+armazenando tudo o que digitamos. Vamos dar uma olhada no tipo da
+variável `pessoas` com a função `class()`:
+
+````r
+> class(pessoas)
+[1] "data.frame"
+````
+
+Viu só? Ela é do tipo data frame!
+
+Se você digitar o nome dessa variável na console e Enter, teremos:
+
+````r
+> pessoas
+    Nome Idade Altura Peso
+1   José    40   1.85   80
+2  Maria    38   1.70   65
+3  Pedro    20   1.60   80
+4 Flávia    12   1.50   50
+5    Alê     2   0.70   20
+> 
+````
+
+Olha que bacana. Parece até uma tabela, não?
+Compare o nome das colunas com a forma que digitamos o comando para
+criar a variável `pessoas`. Todo nome de coluna tem o formato:
+
+````r
+nome_da_coluna=c( dados separados por vírgula )
+````
+
+Ou seja, para criarmos a tabela, fornecemos o nome da coluna e
+entramos com todos os dados da coluna, separados por vírgulas.
+Se colocarmos cada dado entre aspas, estamos dizendo que o dado
+é do tipo texto, e se colocarmos sem as aspas, que ele é do tipo
+numérico. Como queremos apenas os nomes das pessoas como tipo
+texto, somente eles estão entre aspas.
+
+A função `c()` do R "combina" todos os parâmetros passados para
+ela (separados por vírgula). Você vai ver essa função `c()` muitas
+vezes em uso!
+
+Finalmente, depois de digitarmos cada nome de coluna com cada valor,
+combinamos tudo em um tipo data frame com a função `data.frame()`.
+
+Se fôssemos "ler em voz alta" o comando que criou o data frame, seria
+algo assim: "a variável `pessoas` recebe um data frame com as seguintes
+colunas onde cada coluna tem os seguintes valores".
+
+O R Studio possui uma visualização bem útil para data frames. No
+canto superior direito, clique na tab "Environment" e você verá
+a lista de todas as variáveis atualmente definidas na sua sessão do R, 
+como indicado na figura a seguir:
+
+![visualizacao](dataframe.png)
+
+Repare que há uma variável chamada `pessoas` e que ela tem 5 observações
+(ou seja, linhas) e 4 variáveis (colunas). Se você clicar no nome da
+variável, uma janela à sua esquerda vai se abrir (acima da console)
+e você poderá visualizar a tabela `pessoas` de forma bem semelhante
+à visualização que você tem numa planilha Excel!
+
+![visualização de data frame](viewpessoas.png)
+
+É possível fazer algumas coisas bem básicas nessa visualização,
+como por exemplo, ordenar alfabeticamente ou numericamente, clicando
+no nome da coluna. Você pode inclusive fazer alguns filtros básicos
+clicando no ícone de filtro (parecido com um funil). Mas não se sinta
+tentado a querer reproduzir as funcionalidades do Excel aqui. Essa
+não é a ideia! Isso é apenas uma visualização básica. O poder do R
+está na linha de comando!
+
 
 
