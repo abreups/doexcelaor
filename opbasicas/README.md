@@ -315,6 +315,7 @@ da seguinte forma:
 ````r
 pessoas <- data.frame(Nome=c("José", "Maria", "Pedro", "Flávia", "Alê"), Idade=c(40, 38, 20, 12, 2), Altura=c(1.85, 1.70, 1.60, 1.50, 0.70), Peso=c(80, 65, 80, 50, 20))
 > 
+````
 
 Ao digitar esse comando no console, não se preocupe com a mudança de linha.
 Você está digitando tudo numa linha só. À medida que você digita, ao chegar
