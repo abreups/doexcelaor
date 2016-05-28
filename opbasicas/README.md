@@ -203,9 +203,85 @@ e cores mais pra frente, quando sua análise já estiver mais
 madura e os resultados "prontos".
 
 
-## Tipos de variáveis
+## Tipos de dados
 
+Até agora usamos valores numéricos armazenados em variáveis.
+Também podemos guardar texto em variáveis. Por exemplo, podemos criar
+uma variável chamada `nome` e uma outra chamada `idade` e aí fazemos
+(atenção para as aspas):
 
-data frames
+````r
+nome <- "Maria"
+idade <- "20"
+````
+
+Então poderíamos gerar uma frase com o nome e a idade da pessoa assim:
+
+````r
+> nome <- "Maria"
+> idade <- "20"
+> cat(nome, "tem", idade, "anos.")
+Maria tem 20 anos.
+````
+
+`cat()` é uma função do R que concatena, ou seja, cola um depois do outro,
+vários argumentos (que são os valores dentro dos parênteses, separados
+por vírgula).
+
+Bem, e se tentarmos dividir o valor da variável `idade` pelo valor
+da variável `laranja`? A matemática seria 20 dividido por 2 que resultaria
+em 10. Vamos tentar?
+
+````r
+> idade / laranja
+Error in idade/laranja : argumento não-numérico para operador binário
+````
+
+Caramba! O que aconteceu? Bem, tentamos dividir um número por um texto.
+O valor de laranja é numérico, já o valor de idade é texto. Como saber?
+
+Quando definimos o valor de laranja não colocamos aspas em torno do valor,
+mas quando definimos o valor de `idade` colocamos aspas para definir o valor
+de 20. As aspas dizem ao R que o que você está fornecendo são 
+"caracteres de texto".
+
+Lembra no Excel quando você quer digitar um número numa célula mas
+não quer que o Excel trate aquilo como valor numérico, mas como
+texto? No Excel começamos a digitação com um apóstrofe (ou aspas
+simples) antes de digitar o número. Aqui a idéia é parecida (colocamos
+o número entre aspas duplas).
+
+Para vermos que tipo de informação uma variável guarda usamos a 
+função `class()`
+do R, assim:
+
+````r
+> class(laranja)
+[1] "numeric"
+> class(idade)
+[1] "character"
+````
+
+Existem outros tipos de dados além de "numérico" e "caracter"; por exemplo,
+temos o tipo "lógico". Ese tipo de dado tem apenas 2 valores: verdadeiro ou
+falso (`TRUE` e `FALSE`, respectivamente em Inglês).
+
+Quando fizemos a comparação entre os valores de banana e laranja, obtivemos
+a resposta `FALSE`. Se usarmos a função `class()` no resultado daquela
+operação, veja o que acontece:
+
+````r
+> class(banana == laranja)
+[1] "logical"
+````
+
+Ou seja, o resultado da comparação `banana == laranja` é `FALSE`, que
+é um valor do tipo "lógico". `FALSE` não é texto, como se escrevêssemos
+as letras F, A, L, S, E.
+
+Já dá pra fazer muita coisa com esses três tipos de dados, então vamos
+passar para um tipo de variável extremamente importante: data frame.
+
+## data frames
 
 
