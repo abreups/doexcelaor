@@ -30,7 +30,7 @@ Versão: 0.1
 
 ## Capítulo 10 - Fazendo Aplicações Dinâmicas
 
-## Capítulo 11 - Miscelânea
+## Capítulo 11 - Coleção de Exemplos
 
 
 
