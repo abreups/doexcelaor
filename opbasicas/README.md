@@ -331,7 +331,7 @@ ou menos assim:
 E se sua janela de console for mais curtinha, você deve ter algo 
 mais parecido com isso:
 
-![janela curta](pessoas_curta.png)
+![janela curta](pessoas_curto.png)
 
 Não importa. É um comando só, numa linha só. E você pode ajustar a largura
 da janela de console com o mouse, clicando na borda dela, segurando
