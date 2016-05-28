@@ -304,7 +304,7 @@ José   | 40    | 1.85   | 80
 Maria  | 38    | 1.70   | 65
 Pedro  | 20    | 1.60   | 80
 Flávia | 12    | 1.50   | 50
-Alê    | 2     | 0.70   | 20
+Pedro  | 2     | 0.70   | 20
 
 Seria muito fácil digitar isso em em planilha, não? Dá pra ver o paralelo
 entre linhas e colunas e células na planilha.
@@ -313,7 +313,7 @@ Bem, no R vamos representar esses dados numa variável do tipo data frame,
 da seguinte forma:
 
 ````r
-> pessoas <- data.frame(Nome=c("José", "Maria", "Pedro", "Flávia", "Alê"), Idade=c(40, 38, 20, 12, 2), Altura=c(1.85, 1.70, 1.60, 1.50, 0.70), Peso=c(80, 65, 80, 50, 20))
+> pessoas <- data.frame(Nome=c("José", "Maria", "Pedro", "Flávia", "Pedro"), Idade=c(40, 38, 20, 12, 2), Altura=c(1.85, 1.70, 1.60, 1.50, 0.70), Peso=c(80, 65, 80, 50, 20))
 > 
 ````
 
@@ -357,7 +357,7 @@ Se você digitar o nome dessa variável na console e Enter, teremos:
 2  Maria    38   1.70   65
 3  Pedro    20   1.60   80
 4 Flávia    12   1.50   50
-5    Alê     2   0.70   20
+5  Pedro     2   0.70   20
 > 
 ````
 
@@ -410,5 +410,28 @@ tentado a querer reproduzir as funcionalidades do Excel aqui. Essa
 não é a ideia! Isso é apenas uma visualização básica. O poder do R
 está na linha de comando!
 
+Vamos explorar um pouco mais a variável `pessoas`. Quando criamos 
+esta variável dissemos que a coluna Nomes teria valores do tipo
+texto e as demais colunas teriam valores numéricos. Para verificarmos
+quais são os tipos de valores que cada coluna em uma variável
+data frame tem podemos usar a função `str()` (que é uma abreviação
+para 'structure', ou estrutura).
 
+````r
+> str(pessoas)
+'data.frame':	5 obs. of  4 variables:
+ $ Nome  : Factor w/ 4 levels "Flávia","José",..: 2 3 4 1 4
+ $ Idade : num  40 38 20 12 2
+ $ Altura: num  1.85 1.7 1.6 1.5 0.7
+ $ Peso  : num  80 65 80 50 20
+> 
+````
+
+O resultado da função `str()` nos mostra uma linha para cada coluna
+do data frame, o tipo de variável que aquela coluna possui e depois
+nos dá uma amostra dos primeiros valores de cada coluna.
+
+Mas o que é esse tal de 'Factor' que aparece como o tipo de dado
+para a coluna 'Nome'? É simples: 'Factor' é "um tipo de texto", só
+que "categorizado". 
 
