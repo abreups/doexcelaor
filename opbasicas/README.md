@@ -435,24 +435,23 @@ Mas o que é esse tal de 'Factor' que aparece como o tipo de dado
 para a coluna 'Nome'? É simples: 'Factor' é "um tipo de texto", só
 que "categorizado". Nós temos 5 nomes de pessoas mas 2 nomes são
 iguais (Pedro), então temos 4 "categorias" (Fávia, José, Pedro, Maria).
-Não se preocupe com isso por enquanto.
+Por enquanto vamos ficar por aqui no que diz respeito ao tipo Factor.
 
 Como fazemos para nos referir a um determinado elemento do data frame?
 Bem, em uma planilha usamos a notação  "coluna" e "linha". Por exemplo,
-o elemento da primeira linha com a primeira coluna é a célula "A1".
+o elemento da primeira coluna com a primeira linha é a célula "A1".
 As letras referem-se às colunas e os números às linhas. O elemento
-da segunda linha e terceira coluna seria o "B3".
+da terceira coluna e segunda linha seria o "C2".
 
 Pois bem, no R é o inverso. Primeiro usamos a referência da linha e
 depois o da coluna. Se você se lembra um pouquinho de matrizes (sim,
-aquele assunto que você estudo no Ensino Médio!), o R usa o sistema
+aquele assunto que você estudou no Ensino Médio!), o R usa o sistema
 de referência de matrizes, que é linha x coluna.
 
 Portanto, no R, o elemento da primeira linha com a primeira coluna
 é o elemento `[1,1]` (note que usamos colchetes para formar o par).
 Já o elemento da segunda linha e terceira coluna é o `[2,3]`.
-
-Aí então basta colocar o nome do data frame antes dos colchetes
+Aí basta colocar o nome do data frame antes dos colchetes
 e pronto!
 
 ````r
@@ -466,8 +465,9 @@ Levels: Flávia José Maria Pedro
 
 `pessoas[1,1]` é o nome do José e `pessoas[2,3]` é a altura da Maria.
 
-Há uma variação no uso de referência que se torna bastante prática
-que é a seguinte: se quisermos todos os elementos de uma linha, basta 
+Há uma variação na forma de se fazer referência a elementos do
+data frame que se torna bastante prática quando queremos todos 
+os elementos de uma linha; basta 
 colocar o número da linha e deixar o número da coluna sem nada. É
 como se estivéssemos dizendo ao R que queremos "todas as colunas"
 para aquela linha. Exemplo: todos os elementos da linha 3:
@@ -488,5 +488,47 @@ linhas"). Se quisermos todas as idades (coluna 2):
 [1] 40 38 20 12  2
 >
 ````
+
+Agora que sabemos referenciar os elementos de um data frame, vamos
+fazer alguns cálculos. 
+
+O Índice de Massa Corporal (IMC) é uma medida usada para se calcular
+se uma pessoa está próxima de seu "peso ideal". (https://pt.wikipedia.org/wiki/Índice_de_massa_corporal).
+Para se calcular o IMC de uma pessoa, divida seu peso em Kilogramas
+pelo quadrado da altura da pessoa. Vamos fazer esse cálculo para a Maria
+(que está na linha 2 do nosso data frame):
+
+````r
+> pessoas[2,4] / (pessoas[2,3] ** 2)
+[1] 22.49135
+````
+
+Ou seja, o peso da Maria está na linha 2 com a coluna 4, e a altura
+da Maria está na linha 2 com a coluna 3. 22 é um excelente IMC. 
+Parabéns para a Maria!
+
+Será que tem um jeito de calcular o IMC de todas as pessoas no
+data frame, de uma vez só, sem ter que ficar indicando cada
+pessoa por vez? 
+
+Se você fosse fazer isso numa planilha
+você provavelmente criaria numa nova coluna uma fórmula que 
+apontaria para cada elemento do peso e da altura. Cada uma das
+células com a fórmula do IMC teria os índices correspondentes para
+linha e coluna do peso e da altura. Você provavelmente faria isso
+colocando a fórmula na primeira célula da nova coluna e depois
+faria um "copiar e colar" da fórmula para todas as outras células e
+os índices se ajustaria automaticamente para cada linha.
+É como se sua planilha ficasse assim:
+
+   |   A    |   B   |   C    |  D   |   E
+---| -------|-------|--------|------|-----------
+   | Nome   | Idade | Altura | Peso | IMC
+---|--------|-------|--------|------|-----------
+1  | José   | 40    | 1.85   | 80   | =D1/(C1**2)
+2  | Maria  | 38    | 1.70   | 65   | =D2/(C2**2)
+3  | Pedro  | 20    | 1.60   | 80   | =D3/(C3**2)
+4  | Flávia | 12    | 1.50   | 50   | =D4/(C4**2)
+5  | Pedro  | 2     | 0.70   | 20   | =D5/(C5**2)
 
 
