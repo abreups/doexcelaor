@@ -489,6 +489,28 @@ linhas"). Se quisermos todas as idades (coluna 2):
 >
 ````
 
+Uma outra forma de nos referenciarmos a colunas do data frame é
+através do uso do caracter `$`. Coloque o nome do data frame, aí coloque
+o caracter `$` e em seguida o nome da coluna. Tudo junto, sem espaços.
+Por exemplo, para nos referenciarmos à coluna 'Nome' escreveríamos
+`pessoas$Nome`. Na linha de comando isso daria o seguinte resultado:
+
+````r
+> pessoas$Nome
+[1] José   Maria  Pedro  Flávia Pedro 
+Levels: Flávia José Maria Pedro
+>
+````
+
+Da mesma forma, se quiséssemos a coluna de Idade:
+
+````r
+> pessoas$Idade
+[1] 40 38 20 12  2
+> 
+````
+
+
 Agora que sabemos referenciar os elementos de um data frame, vamos
 fazer alguns cálculos. 
 
@@ -531,3 +553,35 @@ os índices se ajustaria automaticamente para cada linha.
 5  | Pedro  | 2     | 0.70   | 20   | =D5/(C5**2)
 
 
+No R fazemos algo semelhante, mas não temos que nos preocupar
+com cada índice individualmente. Em outras palavras, "pegamos
+a coluna do peso e dividimos pelo quadrado da coluna da altura".
+A coluna do peso é `pessoas[,4]` ("todas as linhas, coluna 4"),
+e a coluna da altura é `pessoas[,3]` ("todas as linhas, coluna 3").
+A fórmula do IMC ficaria assim: 
+
+````r
+pessoas[,4]/(pessoas[,3]**2)
+````
+
+O R subentende que você quer fazer essa conta, linha a linha.
+Ou seja, ele pega a linha 1 e faz a conta com os valores das
+colunas 4 e 3 da linha 1. Pega a linha 2 e faz a conta com
+os valores das colunas 4 e 3 da linha 2, e assim por diante.
+Veja o resultado:
+
+````r
+> pessoas[,4]/(pessoas[,3]**2)
+[1] 23.37473 22.49135 31.25000 22.22222 40.81633
+> 
+````
+
+Lembra do valor do IMC da Maria? Lá está ele; é o segundo resultado
+(porque a Maria tem os seus dados na linha 2 do data frame).
+
+Pois bem, mas o data frame `pessoas` continua o mesmo. Essa conta
+que fizemos não foi "incorporada" ao data frame como se fosse
+uma nova coluna. É isso mesmo. Estamos fazendo a conta na console; 
+não estamos dizendo ao R que era pra incorporar o resultado no
+data frame `pessoas`. Se era isso o que queríamos fazer, então temos
+que dizer ao R para fazê-lo; explicitamente.
