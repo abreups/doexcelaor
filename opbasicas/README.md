@@ -522,7 +522,7 @@ os índices se ajustaria automaticamente para cada linha.
 É como se sua planilha ficasse assim:
 
    |   A    |   B   |   C    |  D   |   E
----| -------|-------|--------|------|-----------
+---|--------|-------|--------|------|-----------
    | Nome   | Idade | Altura | Peso | IMC
 ---|--------|-------|--------|------|-----------
 1  | José   | 40    | 1.85   | 80   | =D1/(C1**2)
