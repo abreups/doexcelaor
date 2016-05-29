@@ -648,7 +648,7 @@ tabela de visualização e vê que é o José, com 40 anos. OK, foi
 fácil porque o data frame é pequeno. E se ele tivesse 10 mil linhas?
 
 Você vai ver que o R tem muitas, mas muitas funções mesmo, que 
-ajudam a fazer análises sobre os dados. Não é a toa que o R
+ajudam a fazer análises sobre os dados. Não é à toa que o R
 é uma ferramenta extremamente popular para Estatísticos e outros
 profissionais do ramo de análise de dados.
 
@@ -716,10 +716,10 @@ somente a primeira linha da coluna 'Idade' tem valor igual a 40.
 Poderíamos usar a sintaxe `pessoas[1,2]` para conferir o valor da
 primeira linha da coluna 'Idade' (que é a segunda coluna), mas há uma
 forma mais inteligente de fazer isso usando aquele resultado cheio de
-TRUEs e FALSEs. Colocamos o resultados de TRUEs e FALSEs como parâmetro
-da linha! Ou seja, quando o valor da linha for TRUE, o R vai considerar
-aquele valor, e quando o valor da linha for FALSE, o R não vai considerar
-aquele valor. Então a primeira linha vai ser considerada e as demais não vão.
+TRUEs e FALSEs. Colocamos o resultado de TRUEs e FALSEs como parâmetro
+da linha! Ou seja, quando o parâmetro da linha for TRUE, o R vai considerar
+aquela linha, e quando o parâmetro da linha for FALSE, o R não vai considerar
+aquela linha. Então a primeira linha vai ser considerada e as demais não vão.
 Veja o resultado:
 
 ````r
@@ -767,7 +767,7 @@ igual a 80 Kg. Vamos buscar quem são:
 ````
 
 Repare que há duas respostas com valor TRUE!
-Vamos colocar essa resposta como parâmetro da linha e pedir todas
+Vamos colocar esse resultado como parâmetro da linha e pedir todas
 as colunas:
 
 ````r
@@ -809,5 +809,45 @@ E agora colocamos 'linhas_ok' como o parâmetro da linha no data frame
 quando fazemos desta forma, até porque os nomes das variáveis,
 quando escolhidos apropriadamente, ajudam na compreensão do que
 se está fazendo.
+
+Agora vamos fazer o oposto. Vamos colocar todo o raciocínio em
+uma linha única. Queremos saber quem tem o menor peso.
+
+Para descobrir o menor valor da coluna 'Peso' usamos 
+`min(pessoas$Peso)`.  Isso vai nos dar um número.
+
+````r
+> min(pessoas$Peso)
+[1] 20
+> 
+````
+
+Pegamos **o comando inteiro** usado no passo anterior e comparamos
+com todas as linhas da coluna 'Peso' para localizar quem tem
+esse valor:
+
+````r
+> pessoas$Peso == min(pessoas$Peso)
+[1] FALSE FALSE FALSE FALSE  TRUE
+> 
+````
+
+Aí pegamos esse comandão e colocamos como parâmetro de linha,
+deixando o parâmetro de coluna sem valor:
+
+````r
+> pessoas[pessoas$Peso == min(pessoas$Peso),]
+   Nome Idade Altura Peso      IMC
+5 Pedro     2    0.7   20 40.81633
+> 
+````
+
+Se eu te mostrasse esse comando logo no início você provavelmente
+não ia entender nada; ia parecer "muito complicado". Mas se você 
+for quebrando o comando em pedaços, aos poucos você vai entendendo
+o que ele faz. Quando você se deparar por comandos escritos por
+outras pessoas, faça exatamente isso! Vá analisando o comando
+pedaço por pedaço, de "dentro pra fora", da menor parte até o todo.
+Com certeza você vai entender o o autor quiz fazer com o comando.
 
 
