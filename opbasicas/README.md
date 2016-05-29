@@ -524,7 +524,6 @@ os índices se ajustaria automaticamente para cada linha.
    |   A    |   B   |   C    |  D   |   E
 ---|--------|-------|--------|------|-----------
    | Nome   | Idade | Altura | Peso | IMC
----|--------|-------|--------|------|-----------
 1  | José   | 40    | 1.85   | 80   | =D1/(C1**2)
 2  | Maria  | 38    | 1.70   | 65   | =D2/(C2**2)
 3  | Pedro  | 20    | 1.60   | 80   | =D3/(C3**2)
