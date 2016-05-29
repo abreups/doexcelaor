@@ -489,7 +489,7 @@ linhas"). Se quisermos todas as idades (coluna 2):
 >
 ````
 
-Uma outra forma de nos referenciarmos a colunas do data frame é
+Uma outra forma de referenciarmos as colunas do data frame é
 através do uso do caracter `$`. Coloque o nome do data frame, aí coloque
 o caracter `$` e em seguida o nome da coluna. Tudo junto, sem espaços.
 Por exemplo, para nos referenciarmos à coluna 'Nome' escreveríamos
@@ -513,7 +513,7 @@ Da mesma forma, se quiséssemos a coluna de Idade:
 Veja que o resultado é o mesmo de quando usamos a notação 
 `pessoas[,2]`. 
 
-Qual notação usar é questão de gosto (às vezes) ou conveniência
+Qual notação usar é questão de gosto ou conveniência
 (às vezes é mais fácil usar uma a usar a outra). Você vai aos
 poucos desenvolver sua própria preferência.
 
@@ -523,7 +523,8 @@ fazer alguns cálculos.
 O Índice de Massa Corporal (IMC) é uma medida usada para se calcular
 se uma pessoa está próxima de seu "peso ideal". (https://pt.wikipedia.org/wiki/Índice_de_massa_corporal).
 Para se calcular o IMC de uma pessoa, divida seu peso em Kilogramas
-pelo quadrado da altura da pessoa. Vamos fazer esse cálculo para a Maria
+pelo quadrado da altura da pessoa (em metros).
+ Vamos fazer esse cálculo para a Maria
 (que está na linha 2 do nosso data frame):
 
 ````r
@@ -532,7 +533,7 @@ pelo quadrado da altura da pessoa. Vamos fazer esse cálculo para a Maria
 ````
 
 Ou seja, o peso da Maria está na linha 2 com a coluna 4, e a altura
-da Maria está na linha 2 com a coluna 3. 22 é um excelente IMC. 
+da Maria está na linha 2 com a coluna 3. Um IMC de 22 excelente. 
 Parabéns para a Maria!
 
 Será que tem um jeito de calcular o IMC de todas as pessoas no
@@ -546,12 +547,11 @@ células com a fórmula do IMC teria os índices correspondentes para
 linha e coluna do peso e da altura. Você provavelmente faria isso
 colocando a fórmula na primeira célula da nova coluna e depois
 faria um "copiar e colar" da fórmula para todas as outras células e
-os índices se ajustaria automaticamente para cada linha.
+os índices se ajustariam automaticamente para cada linha.
 É como se sua planilha ficasse assim:
 
    |   A    |   B   |   C    |  D   |   E
 ---|--------|-------|--------|------|-----------
-   | Nome   | Idade | Altura | Peso | IMC
 1  | José   | 40    | 1.85   | 80   | =D1/(C1**2)
 2  | Maria  | 38    | 1.70   | 65   | =D2/(C2**2)
 3  | Pedro  | 20    | 1.60   | 80   | =D3/(C3**2)
@@ -567,7 +567,7 @@ e a coluna da altura é `pessoas[,3]` ("todas as linhas, coluna 3").
 A fórmula do IMC ficaria assim: 
 
 ````r
-pessoas[,4]/(pessoas[,3]**2)
+> pessoas[,4]/(pessoas[,3]**2)
 ````
 
 O R subentende que você quer fazer essa conta, linha a linha.
@@ -633,7 +633,7 @@ poderia ter sido escrita com uma ou outra notação:
 ````r
 > pessoas[,4]/(pessoas[,3]**2)
 [1] 23.37473 22.49135 31.25000 22.22222 40.81633
-> pessoas$Peso / pessoas$Altura**2
+> pessoas$Peso / (pessoas$Altura**2)
 [1] 23.37473 22.49135 31.25000 22.22222 40.81633
 > 
 ````
@@ -642,6 +642,172 @@ Nesse caso, usar os nomes das colunas facilita a compreensão
 de que elementos (peso e altura) a fórmula está fazendo uso. Mas,
 matematicamente, dá na mesma.
 
+Vamos fazer mais algumas análises com estes dados que possuímos.
+Que tal descobrir qual a pessoa mais velha? Você bate o olho na
+tabela de visualização e vê que é o José, com 40 anos. OK, foi 
+fácil porque o data frame é pequeno. E se ele tivesse 10 mil linhas?
 
+Você vai ver que o R tem muitas, mas muitas funções mesmo, que 
+ajudam a fazer análises sobre os dados. Não é a toa que o R
+é uma ferramenta extremamente popular para Estatísticos e outros
+profissionais do ramo de análise de dados.
+
+Vamos usar a função `max()`, que retorna o maior valor dentro
+do conjunto de dados fornecido. Por exemplo:
+
+````r
+> max(10,5,7,12)
+[1] 12
+````
+
+Mas vamos passar as idades das pessoas como parâmetro para a função
+`max()`. Para coletarmos as idades das pessoas podemos usar a 
+notação com `$`:
+
+````r
+> pessoas$Idade
+[1] 40 38 20 12  2
+> 
+````
+
+Colocamos então `pessoas$Idade` como parâmetro de `max()`:
+
+````r
+> max(pessoas$Idade)
+[1] 40
+> 
+````
+
+É como se tivéssemos passado a lista de valores 40, 38, 20, 12 e 2
+para a função `max()`, mas não precisamos fazer isso "digitando
+os valores"; eles apareceram como resultado de `pessoas$Idade`.
+
+Outro exemplo, mas desta vez buscando pelo mínimo valor da altura.
+ É isso aí, a função é `min()`.
+
+````r
+> min(pessoas$Altura)
+[1] 0.7
+> 
+````
+
+OK. Sabemos que a maior idade é 40, mas quem tem a maior idade?
+Bem, já que sabemos que 40 é o número procurado, vamos comparar
+todas as idades com o número 40 e ver no que dá.
+
+````r
+> pessoas$Idade == 40
+[1]  TRUE FALSE FALSE FALSE FALSE
+> 
+````
+
+Lembra quando fizemos a comparação `banana == laranja` lá atrás?
+Então, aqui estamos usando a mesma sintaxe só que estamos comparando
+um valor numérico (40) diretamente contra todos os valores contidos
+na coluna 'Idade'. Repare como o resultado foi dado. Com vários 
+TRUE e FALSE.
+
+A forma de interpretar o resultado é a seguinte: o valor na primeira
+linha da coluna 'Idade' é 40? A resposta é TRUE. E o valor na 
+segunda linha da coluna 'Idade'? Esse não, pois a resposta é FALSE.
+Aliás, a resposta é FALSE para todas as outras linhas. Então sabemos que
+somente a primeira linha da coluna 'Idade' tem valor igual a 40.
+
+Poderíamos usar a sintaxe `pessoas[1,2]` para conferir o valor da
+primeira linha da coluna 'Idade' (que é a segunda coluna), mas há uma
+forma mais inteligente de fazer isso usando aquele resultado cheio de
+TRUEs e FALSEs. Colocamos o resultados de TRUEs e FALSEs como parâmetro
+da linha! Ou seja, quando o valor da linha for TRUE, o R vai considerar
+aquele valor, e quando o valor da linha for FALSE, o R não vai considerar
+aquele valor. Então a primeira linha vai ser considerada e as demais não vão.
+Veja o resultado:
+
+````r
+> pessoas[pessoas$Idade == 40,]
+  Nome Idade Altura Peso      IMC
+1 José    40   1.85   80 23.37473
+> 
+````
+
+Repare que deixamos o valor da coluna sem nada, então o R mostrou
+"todas as colunas".
+
+Vamos fazer de novo mas agora usando o resultado da menor altura.
+A menor altura foi 0.7, certo? Que foi o resultado de 
+`min(pessoas$Altura)`. Então busquemos quem tem a altura igual
+a 0.7 assim:
+
+````r
+> pessoas$Altura == 0.7
+[1] FALSE FALSE FALSE FALSE  TRUE
+> 
+````
+
+e usemos esse resultado para nos mostrar a linha inteira que
+tem essa altura:
+
+````r
+> pessoas[pessoas$Altura == 0.7,]
+   Nome Idade Altura Peso      IMC
+5 Pedro     2    0.7   20 40.81633
+> 
+````
+
+Lembrete: se você estiver digitando esses comandos na console,
+lembre-se de usar a seta para cima para economizar digitação!
+
+E o que aconteceria se tivéssemos dois resultados para nossa
+comparação? Por exemplo, sabemos que há duas pessoas com peso 
+igual a 80 Kg. Vamos buscar quem são:
+
+````r
+> pessoas$Peso == 80
+[1]  TRUE FALSE  TRUE FALSE FALSE
+> 
+````
+
+Repare que há duas respostas com valor TRUE!
+Vamos colocar essa resposta como parâmetro da linha e pedir todas
+as colunas:
+
+````r
+> pessoas[pessoas$Peso == 80,]
+   Nome Idade Altura Peso      IMC
+1  José    40   1.85   80 23.37473
+3 Pedro    20   1.60   80 31.25000
+> 
+````
+
+Olha lá. Apareceram duas linhas na resposta! São as duas linhas que
+tem TRUE como parâmetro. As outras foram ignoradas (porque o
+parâmetro para a linha delas é FALSE).
+
+Vamos fazer um passo intermediário nesse negócio de passar os
+TRUE e FALSE como parâmetro de linha. Vamos colocar o resultado
+da comparação numa variável. Chamemos de  'linhas_ok' uma variável
+que vai armazenar o resultado da comparação. Por exemplo:
+
+````r
+> linhas_ok <- pessoas$Peso == 80
+> linhas_ok
+[1]  TRUE FALSE  TRUE FALSE FALSE
+> 
+````
+
+E agora colocamos 'linhas_ok' como o parâmetro da linha no data frame
+`pessoas`:
+
+````r
+> pessoas[linhas_ok,]
+   Nome Idade Altura Peso      IMC
+1  José    40   1.85   80 23.37473
+3 Pedro    20   1.60   80 31.25000
+> 
+````
+
+É o mesmo resultado, obviamente, mas às vezes fica mais claro
+quando fazemos desta forma, até porque os nomes das variáveis,
+quando escolhidos apropriadamente, ajudam na compreensão do que
+se está fazendo.
 
 
