@@ -510,6 +510,12 @@ Da mesma forma, se quiséssemos a coluna de Idade:
 > 
 ````
 
+Veja que o resultado é o mesmo de quando usamos a notação 
+`pessoas[,2]`. 
+
+Qual notação usar é questão de gosto (às vezes) ou conveniência
+(às vezes é mais fácil usar uma a usar a outra). Você vai aos
+poucos desenvolver sua própria preferência.
 
 Agora que sabemos referenciar os elementos de um data frame, vamos
 fazer alguns cálculos. 
@@ -585,3 +591,57 @@ uma nova coluna. É isso mesmo. Estamos fazendo a conta na console;
 não estamos dizendo ao R que era pra incorporar o resultado no
 data frame `pessoas`. Se era isso o que queríamos fazer, então temos
 que dizer ao R para fazê-lo; explicitamente.
+
+Para isso vamos usar a notação com o caracter `$`. Vamos fazer
+o cálculo e vamos passar o resultado para uma nova coluna
+do data frame `pessoas` que vamos batizar de 'IMC'. 
+Lembrando: a notação para a coluna então fica sendo: 
+`pessoas$IMC`, e passamos para ela o resultado de 
+`pessoas[,4]/(pessoas[,3]**2)`, assim:
+
+````r
+> pessoas$IMC <- pessoas[,4]/(pessoas[,3]**2)
+>
+
+````
+
+Ao executar o comando na console parece que nada aconteceu, mas
+dê uma olhada agora no data frame `pessoas`:
+
+````r
+> pessoas
+    Nome Idade Altura Peso      IMC
+1   José    40   1.85   80 23.37473
+2  Maria    38   1.70   65 22.49135
+3  Pedro    20   1.60   80 31.25000
+4 Flávia    12   1.50   50 22.22222
+5  Pedro     2   0.70   20 40.81633
+> 
+````
+
+E lá está a nova coluna.
+
+Parece que os dois Pedros estão com um "pequeno" problema de obesidade.
+
+Da mesma forma que o cálculo do IMC foi feito usando-se a notação 
+`[linha, coluna]`, poderia ter sido feito usando a notação `$`.
+O nome da coluna 4 não é 'Peso'? Então `pessoas$Peso` é o mesmo que
+`pessoas[,4]`. E o nome da coluna 3 não é 'Altura'? Então 
+`pessoas$Altura` é o mesmo que `pessoas[,3]`. E a fórmula do IMC
+poderia ter sido escrita com uma ou outra notação:
+
+````r
+> pessoas[,4]/(pessoas[,3]**2)
+[1] 23.37473 22.49135 31.25000 22.22222 40.81633
+> pessoas$Peso / pessoas$Altura**2
+[1] 23.37473 22.49135 31.25000 22.22222 40.81633
+> 
+````
+
+Nesse caso, usar os nomes das colunas facilita a compreensão
+de que elementos (peso e altura) a fórmula está fazendo uso. Mas,
+matematicamente, dá na mesma.
+
+
+
+
