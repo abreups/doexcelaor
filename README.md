@@ -16,7 +16,7 @@ Versão: 0.1
 
 ## [Capítulo 3 - Operações Básicas](opbasicas)
 
-## [Capítulo 4 - Carregando um arquivo no R](cap3)
+## [Capítulo 4 - Carregando um arquivo no R](carregando)
 
 ## [Capítulo 5 - Fazendo Filtros](cap5)
 
