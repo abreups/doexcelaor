@@ -402,6 +402,8 @@ e você poderá visualizar a tabela `pessoas` de forma bem semelhante
 
 ![visualização de data frame](viewpessoas.png)
 
+## A estrutura do data frame
+
 É possível fazer algumas coisas bem básicas nessa visualização,
 como por exemplo, ordenar alfabeticamente ou numericamente, clicando
 no nome da coluna. Você pode inclusive fazer alguns filtros básicos
@@ -539,6 +541,8 @@ Parabéns para a Maria!
 Será que tem um jeito de calcular o IMC de todas as pessoas no
 data frame, de uma vez só, sem ter que ficar indicando cada
 pessoa por vez? 
+
+## Cálculos com linhas e colunas
 
 Se você fosse fazer isso numa planilha
 você provavelmente criaria numa nova coluna uma fórmula que 
