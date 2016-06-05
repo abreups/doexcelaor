@@ -286,11 +286,11 @@ Luxemburgo estava "no topo da lista" e em 1990 a China estava
 
 > Uma paradinha rápida para umas continhas. Estamos
 > lidando com "PIB per capta", ou seja, por habitante.
-> A China tinha aproximadamente uns 9 billhões de
+> A China tinha aproximadamente 1 billhão de
 > habitantes em 1990 e Luxemburgo uns 500 mil.
 > Multiplicando o PIB per capta pela quantidade de
 > habitantes vemos que o PIB da China em 1990 era
-> de mais ou menos 8 bilhões de dólares enquanto
+> de mais ou menos 972 bilhões de dólares enquanto
 > o PIB de Luxemburgo em 2015 era de mais ou menos
 > 50 bilhões de dólares.
 
@@ -349,7 +349,9 @@ que queremos.
 
 Vamos fazer o mesmo para a China, mas vou pular
 a parte de criar a variável `linhas` e partir
-direto pro resultado final:
+direto pro resultado final. Vou guardar os dados
+da China numa variável chamada `chn` (que falta de
+criatividade, não?):
 
 ````r
 > chn <- pib[pib$LOCATION == "CHN",]
@@ -383,72 +385,51 @@ direto pro resultado final:
 > 
 ````
 
+Com os dados dos países separados assim, dá pra calcular
+os valores máximos e mínimos para cada um deles facilmente.
+Vamos então calcular o valor máximo do PIB da China
+e o valor mínimo do PIB de Luxemburgo.
+
+````r
+> max(chn$Value)
+[1] 13170.8
+> min(lux$Value)
+[1] 32078.98
+> 
+````
+
+E a linha completa onde estão esses valores (agora não tem moleza;
+faça o raciocínio aí):
+
+````r
+> chn[chn$Value == max(chn$Value),]
+    LOCATION INDICATOR SUBJECT MEASURE FREQUENCY TIME   Value Flag.Codes
+828      CHN       GDP     TOT USD_CAP         A 2014 13170.8           
+> lux[lux$Value == min(lux$Value),]
+    LOCATION INDICATOR SUBJECT MEASURE FREQUENCY TIME    Value Flag.Codes
+416      LUX       GDP     TOT USD_CAP         A 1990 32078.98          E
+> 
+````
+
+A SEGUIR:
+
+O QUE PODE DAR ERRADO AO LER UM ARQUIVO CSV.
+
+(LINHAS ANTES DO CABEÇALHO E SEP DIFERENTE DE VÍRGULA)
+
+
+COMO SALVAR UM ARQUIVO CSV
+
+
+CAPÍTULO DE SCRIPTS
+
+CARREGANDO UM ARQUIVO DINAMICAMENTE DEFINIDO PELO USUARIO.
+
 
 
 ### Lendo arquivos csv
 
 
-
-Baixe o arquivo pib1.csv para um diretório do seu micro e execute o seguinte código:
-
-````r
-setwd("~/Documents/blog") # ajuste para o local onde está o arquivo
-getwd()
-dados <- read.csv("pib1.csv")
-dados
-class(dados)
-````
-
-Se você executar linha a linha este código você verá:
-
-````r
-> setwd("~/Documents/blog")
-> getwd()
-[1] "/Users/pauloabreu/Documents/blog"
-> dados <- read.csv("pib1.csv")
-> dados
- Pais PIB posicao
-1 Estados Unidos 14586736 1
-2 China 5815501 2
-3 Japão 5458836 3
-4 Alemanha 3391641 4
-5 Franca 2671113 5
-6 Brasil 2350889 6
-> class(dados)
-[1] "data.frame"
-````
-
-Ou seja, a função 'read.csv()' leu o arquivo e guardou o conteúdo numa variável do tipo 'data.frame'. Desta forma, podemos agora acessar os dados de várias formas, como por exemplo:
-
-````r
-> dados$Pais
-[1] Estados Unidos China Japão Alemanha Franca
-[6] Brasil
-Levels: Alemanha Brasil China Estados Unidos Franca Japão
-````
-
-que nos dá apenas os países, ou
-
-````r
-> dados$posicao > 3
-[1] FALSE FALSE FALSE TRUE TRUE TRUE
-````
-
-que nos retorna se o valor em cada 'posição' é maior que 3 (a resposta é um vetor lógico TRUE/FALSE).
-
-Não vou me estender aqui sobre como usar e manipular data.frames (isso é assunto para um outro post).
-
-Só que e se o arquivo csv não for tão "bem comportado"? Por exemplo, baixe esse outro arquivo csv: pib2.csv.
-
-Vamos ler esse arquivo assim, como se diz, "curto e grosso":
-
-````r
-rm(list=ls())
-setwd("~/Documents/blog")
-getwd()
-dados <- read.csv("pib2.csv")
-dados
-````
 
 Executando passo a passo temos:
 
@@ -524,14 +505,8 @@ Pode ser que seu arquivo csv tenha também algumas linhas no final que você que
 É isso.
 
 
-
-
-
-
-
 ### Passando um nome de arquivo de forma dinâmica.
 
-Há muitas coisas para serem ditas sobre o R, mas creio que uma das mais básicas seja a 'leitura de arquivos'.
 
 Durante a execução do código você quer poder navegar até o diretório onde está o arquivo e selecioná-lo.
 
@@ -617,169 +592,6 @@ Ou seja:
 ### Lendo arquivos csv
 
 
-
-Depois que você localizou o arquivo no disco do seu computador, resta então ler o conteúdo do arquivo.
-
-Alguns formatos de arquivo contendo dados são mais populares que outros. Dentre os mais comuns temos:
-
-csv: comma separated values (valores separados por vírgula). Por ser um formato que usa "texto puro" é compreendido por muitos sistemas de computadores (Windows, Unix, Mac, etc).
-xls e xlsx: para os amantes de planilhas Excel, muito comum hoje em dia.
-É claro que a lista é muito maior que isso, mas vou ficar por aqui porque com estes formatos já dá pra fazer muita coisa com o R.
-
-Neste post vou explorar o tema de leitura de arquivos csv (falarei de planilhas Excel em outro post futuro).
-
-Para ler arquivos csv basta usar a função 'read.csv()'. Essa função está baseada numa função mais genérica chamada 'read.table()', mas na 'read.csv()' alguns parâmetros já são ajustados para arquivos csv, tais como:
-
-header = TRUE : seu arquivo cvs provavelmente vai ter a primeira linha com os nomes dos campos.
-sep="," : o separador dos campos em cada linha é uma vírgula;  afinal, os campos são separados por vírgula :-)
-Suponha então que você tenha um arquivo bem padrãozinho e bem comportado do tipo csv, como esse: pib1.csv
-
-Ele tem o seguinte conteúdo:
-
-> Pais,PIB,posicao
-> Estados Unidos,14586736,1
-> China,5815501,2
-> Japão,5458836,3
-> Alemanha,3391641,4
-> Franca,2671113,5
-> Brasil,2350889,6
-
-A primeira linha contém os nomes de cada campo (é o 'header'). As outras linhas contém a informação de:
-
-nome do país
-valor do PIB em dólares americanos
-a posição no ranking mundial
-Veja, eu sei tudo isso porque fui eu que criei o arquivo a partir dos dados da Wikipedia. Se você receber um arquivo csv de alguém é muito desejável que você também receba alguma explicação do que é cada campo do arquivo (um outro arquivo contendo essas explicações é conhecido por 'codebook').
-
-Baixe o arquivo pib1.csv para um diretório do seu micro e execute o seguinte código:
-
-````r
-setwd("~/Documents/blog") # ajuste para o local onde está o arquivo
-getwd()
-dados <- read.csv("pib1.csv")
-dados
-class(dados)
-````
-
-Se você executar linha a linha este código você verá:
-
-````r
-> setwd("~/Documents/blog")
-> getwd()
-[1] "/Users/pauloabreu/Documents/blog"
-> dados <- read.csv("pib1.csv")
-> dados
- Pais PIB posicao
-1 Estados Unidos 14586736 1
-2 China 5815501 2
-3 Japão 5458836 3
-4 Alemanha 3391641 4
-5 Franca 2671113 5
-6 Brasil 2350889 6
-> class(dados)
-[1] "data.frame"
-````
-
-Ou seja, a função 'read.csv()' leu o arquivo e guardou o conteúdo numa variável do tipo 'data.frame'. Desta forma, podemos agora acessar os dados de várias formas, como por exemplo:
-
-````r
-> dados$Pais
-[1] Estados Unidos China Japão Alemanha Franca
-[6] Brasil
-Levels: Alemanha Brasil China Estados Unidos Franca Japão
-````
-
-que nos dá apenas os países, ou
-
-````r
-> dados$posicao > 3
-[1] FALSE FALSE FALSE TRUE TRUE TRUE
-````
-
-que nos retorna se o valor em cada 'posição' é maior que 3 (a resposta é um vetor lógico TRUE/FALSE).
-
-Não vou me estender aqui sobre como usar e manipular data.frames (isso é assunto para um outro post).
-
-Só que e se o arquivo csv não for tão "bem comportado"? Por exemplo, baixe esse outro arquivo csv: pib2.csv.
-
-Vamos ler esse arquivo assim, como se diz, "curto e grosso":
-
-````r
-rm(list=ls())
-setwd("~/Documents/blog")
-getwd()
-dados <- read.csv("pib2.csv")
-dados
-````
-
-Executando passo a passo temos:
-
-````r
-> rm(list=ls())
-> setwd("~/Documents/blog")
-> getwd()
-[1] "/Users/pauloabreu/Documents/blog"
-> dados <- read.csv("pib2.csv")
-Erro em read.table(file = file, header = header, sep = sep, quote = quote, :
-more columns than column names
-> dados
-Erro: objeto 'dados' não encontrado
-````
-
-O que aconteceu foi o seguinte:
-
-primeiro limpamos todas as variáveis da memória com o comando 'rm(list=ls())' para que resultados obtidos anteriormente não possam causar confusão.
-ajustamos o working directory para o local onde você baixou o arquivo pib2.csv (e conferimos com getwd, que é um passo "desnecessário" mas está aqui só por questões "didáticas").
-tentamos ler o arquivo mas aí temos um erro.
-e a variável dados nem pode ser criada por conta do erro.
-Vamos dar uma olhada no conteúdo do arquivo pib2.csv:
-
-> # Valores de PIB em dólares americanos
-> # posição corresponde ao ranking mundial do país
-> # Fonte: http://pt.wikipedia.org/wiki/Lista_de_pa%C3%ADses_por_PIB_nominal
-> Pais,PIB,posicao
-> Estados Unidos,14586736,1
-> China,5815501,2
-> Japão,5458836,3
-> Alemanha,3391641,4
-> Franca,2671113,5
-> Brasil,2350889,6
-
-As 3 primeiras linhas não são dados propriamente ditos, mas explicações a respeito dos dados que virão mais adiante (taí um "mini codebook" pra você).
-
-Apesar de útil para sabermos, por exemplo, que o valor do PIB está em dólares americanos, não precisamos disso para a captura dos dados. O que gostaríamos de fazer é pular essas três primeiras linhas!
-
-Existe um parâmetro na função 'read.table' (que é aproveitado nas funções derivadas dela como a read.csv) chamado 'skip'.
-
-Dê uma olhada na documentação de read.csv digitando '?read.csv' na linha de comando do R (ou R Studio).
-
-O que skip faz é... pular uma certa quantidade de linhas no início do arquivo!
-
-Ajustemos nosso código para:
-
-````r
-dados <- read.csv("pib2.csv", skip=3)
-````
-
-Executando de novo passo a passo desde o começo:
-
-````r
-> rm(list=ls())
-> setwd("~/Documents/blog")
-> getwd()
-[1] "/Users/pauloabreu/Documents/blog"
-> dados <- read.csv("pib2.csv", skip=3)
-> dados
-Pais PIB posicao
-1 Estados Unidos 14586736 1
-2 China 5815501 2
-3 Japão 5458836 3
-4 Alemanha 3391641 4
-5 Franca 2671113 5
-6 Brasil 2350889 6
-````
-
-Voilà!
 
 Pode ser que seu arquivo csv tenha também algumas linhas no final que você queira (ou precise) ignorar. O parâmetro 'nrows' pode ser usado para se determinar a quantidade total de linhas a serem lidas. Não vou dar um exemplo detalhado aqui, mas fica a dica.
 
