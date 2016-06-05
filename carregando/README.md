@@ -543,7 +543,8 @@ no início que não fazem parte dos dados propriamente
 ditos. Os motivos para isso ocorrer são vários, como por
 exemplo, a primeira linha ser uma frase falando a data
 em que o arquivo foi gerado e de que sistema ele veio, ou
-coisas do tipo.
+coisas do tipo. São motivos legítimos, mas não nos ajudam
+na hora de ler os dados.
 
 Para se livrar dessas linhas há um parâmetro na função 
 `read.csv()` chamado `skip`. O que ele faz é "saltar"
@@ -567,12 +568,12 @@ artifício mudar o caracter que separa os dados para não
 dar confusão.
 
 
-Obviamente que se o arquivo csv tiver alguma forma de erro
+Por fim, se o arquivo csv tiver alguma "malformação"
 a função `read.csv()`vai reclamar. Pode ser que alguma linha
 não tenha todos os campos (algum está faltando e a vírgula
-correspondente para indicar que o campo estria vazio está faltando).
+correspondente para indicar que o campo estaria vazio está faltando).
 Mas aí já entramos na categoria de "limpeza de dados" (os termos
-em Inglês para isso são *data cleansing* ou * data scrubbing*;
+em Inglês para isso são *data cleansing* ou *data scrubbing*;
 esse último se traduziria como "escovação de dados"!).
 Isto já está fora do contexto desse livro, portanto não vamos
 elaborar sobre o assunto (daria um outro livro!).
@@ -580,13 +581,11 @@ elaborar sobre o assunto (daria um outro livro!).
 
 ## Salvando um arquivo csv
 
-Você leu um arquivo csv, fez algumas manipulações com 
-os dados e como fazer para salvar esse resultado como
-um arquivo csv também? Digamos que você queira salvar 
+Supoha que você leu um arquivo csv, fez algumas manipulações com 
+os dados e agora quer salvar esse resultado como
+um arquivo csv também. Por exemplo, digamos que você queira salvar 
 os dados separados da China e de Luxemburgo em dois
-arquivos csv distintos.
-
-A função `write.csv()` serve para isso.
+arquivos csv distintos. A função `write.csv()` serve para isso.
 
 Se você consultar o help da função `write.csv()` vai ver que 
 ele também começa com uma função chamada `write.table()`,
@@ -601,14 +600,14 @@ Há um detalhe importante no uso dessas funções. Por padrão,
 se você usar a função `write.csv()` você vai notar que o seu
 arquivo de saída conterá uma primeira coluna com números.
 Esses números são o valor das linhas do data frame original
-de ondem o data frame derivado foi construído! No caso da 
+de onde o data frame derivado foi construído! No caso da 
 China, por exemplo, se você consultar o valor de `chn` na console
 verá que a primeira coluna começa com 804 e termina com 828
 (digite `chn` na console e aperte Enter).
 
 Isso acontece porque, por padrão, a função `write.csv()`
 tem o parâmetro `row.names = TRUE`. `row` é "linha",
-`names` é "coluna", portanto `row.names` seria "nomes das
+`names` é "nomes", portanto `row.names` seria "nomes das
 linhas". Aqueles números são os "nomes" das linhas.
 
 Finalmente, assim como na função `read.csv()`, na função
@@ -626,7 +625,22 @@ os "nomes das linhas" e os dados de Luxemburgo com os
 > 
 ````
 
+Se abrirmos esses dois arquivos num editor de texto simples
+(não precisa ser um programa de planilha eletrônica, mas se
+você tiver um também não vai fazer nenhum mal) veremos que
+os dados da China começam com a coluna de `LOCATION`:
 
+![China](china.png)
+
+e que os dados de Luxemburgo têm os "nomes" das linhas como
+primeira coluna!
+
+Imagino que dificilmente você vai querer esses números na frente,
+então lembre-se sempre de colocar o parâmetro `row.names = FALSE`
+na função `write.csv()`.
+
+
+![Luxemburgo](luxemburgo.png)
 
 
 A SEGUIR:
