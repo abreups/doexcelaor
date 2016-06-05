@@ -149,7 +149,9 @@ se parecer com isso:
 
 ![Ambiente com PIB](ambiente_com_pib.png)
 
-A coluna LOCATION possui o nome do país, a coluna
+A coluna LOCATION possui o nome do país representado
+pelo código ISO de 3 letras (veja essa referência, por
+exemplo: https://pt.wikipedia.org/wiki/ISO_3166-1), a coluna
 TIME possui o ano e a coluna Value possui o valor
 do PIB per capta.
 
@@ -159,7 +161,7 @@ o valor total do PIB (TOT), a medida do PIB (que
 é PIB per capta) e a frequencia da medida (que é
 anual). A coluna Flag.Codes indica, por exemplo,
 se o valor do PIB é estimado.
-veja, nada disso tem a ver com o R. Esta é a descrição
+Veja, nada disso tem a ver com o R. Esta é a descrição
 dos dados que obtivemos do site da OEDC.
 
 Com a função `class(pib)` você vai ver que nossa variável `pib`
@@ -206,6 +208,168 @@ valor do PIB está na coluna `Value`).
 [1] 100309.5
 > min(pib$Value)
 [1] 972.9963
+> 
+````
+
+E para recuperar a linha inteira de cada um daqueles
+valores:
+
+```r
+> pib[pib$Value == max(pib$Value),]
+    LOCATION INDICATOR SUBJECT MEASURE FREQUENCY TIME    Value Flag.Codes
+441      LUX       GDP     TOT USD_CAP         A 2015 100309.5           
+> pib[pib$Value == min(pib$Value),]
+    LOCATION INDICATOR SUBJECT MEASURE FREQUENCY TIME    Value Flag.Codes
+804      CHN       GDP     TOT USD_CAP         A 1990 972.9963           
+> 
+````
+
+LUX é o país Luxemburgo e CHN é China.
+
+Deixe-me ler seus pensamentos... Você agora entrou em
+pânico porque você não lembra como se chega nesses
+comandos acima. Acertei?
+
+Se eu acertei, então vamos devagar porque a ideia aqui
+é você introjetar esse negócio até ficar tão craque
+que você não vai nem se lembrar mais do que era planilha
+Excel. :-)
+
+1. Achar o PIB máximo você sabe, certo? É só usar a função
+`max()` e passar a coluna onde estão os PIBs, que é
+a coluna `Value` da nossa variável `PIB`. Portanto:
+`max(pib$Value)`. Se você fizer só isso você vai 
+obter um número (que é o valor máximo de PIB encontrado
+na coluna. No caso, `100309.5`). Digite o comando
+pra ver o resultado.
+
+2. Agora você quer saber em qual linha está esse valor.
+Então pensa assim: "o valor não é `100309.5`. O valor
+é `max(pib$Value)`".
+
+3. Onde é que `pib$Value` (que é a coluna inteira
+dos valores de PIBs) é **igual** a esse valor
+aí que você quer? Sacou? **Igual**! Ou seja, `==`.
+Então: `pib$Value == max(pib$Value)`.
+
+4. O resultado de `pib$Value == max(pib$Value)` é
+um monte de `FALSE` e um único `TRUE` (a menos
+que tenhamos exatamente o mesmo valor numérico
+em mais de uma linha. Haja coincidência, não?).
+Digite esse comando para ver o resultado (na dúvida
+faça sempre isso. Vá digitando os comandos pra ver
+o que acontece).
+
+5. Se o comando anterior é um monte de `FALSE` e
+`TRUE`, então basta colocá-lo como parâmetro de 
+linha no par `[ linhas , colunas ]` do data frame `pib`.
+Ou seja, recheamos `pib[ linhas , colunas ]` trocando
+"linhas" por aquele treco que me dá um monte de `FALSE`
+e `TRUE`. E deixamos "colunas" vazio para indicar
+que queremos todas as colunas: 
+`pib[  pib$Value == max(pib$Value)  ,  ]`.
+
+Espero que você tenha acompanhado o raciocínio passo-a-passo.
+É assim que eu me habituei a fazer mentalmente quando
+tenho que escrever esses comandos que geram um subconjunto
+de dados. E eu literalmente vou fazendo desse jeito: começo
+com o comando mais de dentro e vou colocando o sinal
+de `==`, depois os colchetes, até chegar no comando final.
+Fica a dica!
+
+
+
+
+
+Como os dados de PIB vão de 1990 até 2015, vemos que em 2015
+Luxemburgo estava no topo da lista e em 1990 a China está
+na posição "mais baixa".
+
+Mas como será o histórico do PIB de Luxemburgo e da China?
+Ano após ano?
+
+Não existe uma única forma de se obter esses resultados, mas
+várias. Cada um acaba criando sua forma preferida.
+Eu gosto de fazer assim:
+
+1. separo os dados do país em uma variável
+
+2. faço as manipulações usando essa variável
+
+Vamos separar os dados de Luxemburgo em uma
+variável que vamos chamar de ... `lux`!
+Vou usar o método de primeiro criar uma
+variável só com as linhas e depois usar
+essa variável para indicar quais a linhas
+que queremos. 
+
+````r
+> linhas <- pib$LOCATION == "LUX"
+> lux <- pib[linhas,]
+> lux
+    LOCATION INDICATOR SUBJECT MEASURE FREQUENCY TIME     Value Flag.Codes
+416      LUX       GDP     TOT USD_CAP         A 1990  32078.98          E
+417      LUX       GDP     TOT USD_CAP         A 1991  35528.24          E
+418      LUX       GDP     TOT USD_CAP         A 1992  36499.62          E
+419      LUX       GDP     TOT USD_CAP         A 1993  38389.87          E
+420      LUX       GDP     TOT USD_CAP         A 1994  40120.25          E
+421      LUX       GDP     TOT USD_CAP         A 1995  40965.36          E
+422      LUX       GDP     TOT USD_CAP         A 1996  42373.76          E
+423      LUX       GDP     TOT USD_CAP         A 1997  42993.49          E
+424      LUX       GDP     TOT USD_CAP         A 1998  45513.66          E
+425      LUX       GDP     TOT USD_CAP         A 1999  51652.81          E
+426      LUX       GDP     TOT USD_CAP         A 2000  56502.68           
+427      LUX       GDP     TOT USD_CAP         A 2001  56186.40           
+428      LUX       GDP     TOT USD_CAP         A 2002  59352.93           
+429      LUX       GDP     TOT USD_CAP         A 2003  60836.74           
+430      LUX       GDP     TOT USD_CAP         A 2004  65389.76           
+431      LUX       GDP     TOT USD_CAP         A 2005  67002.98           
+432      LUX       GDP     TOT USD_CAP         A 2006  77257.99           
+433      LUX       GDP     TOT USD_CAP         A 2007  82724.29           
+434      LUX       GDP     TOT USD_CAP         A 2008  84920.06           
+435      LUX       GDP     TOT USD_CAP         A 2009  80238.87           
+436      LUX       GDP     TOT USD_CAP         A 2010  84498.64           
+437      LUX       GDP     TOT USD_CAP         A 2011  90888.71           
+438      LUX       GDP     TOT USD_CAP         A 2012  90693.65           
+439      LUX       GDP     TOT USD_CAP         A 2013  95587.31           
+440      LUX       GDP     TOT USD_CAP         A 2014  98110.11           
+441      LUX       GDP     TOT USD_CAP         A 2015 100309.46           
+> 
+````
+
+Vamos fazer o mesmo para a China, mas vou pular
+a parte de criar a variável `linhas` e partir
+direto pro resultado final:
+
+````r
+> chn <- pib[pib$LOCATION == "CHN",]
+> chn
+    LOCATION INDICATOR SUBJECT MEASURE FREQUENCY TIME      Value Flag.Codes
+804      CHN       GDP     TOT USD_CAP         A 1990   972.9963           
+805      CHN       GDP     TOT USD_CAP         A 1991  1084.4292           
+806      CHN       GDP     TOT USD_CAP         A 1992  1252.9136           
+807      CHN       GDP     TOT USD_CAP         A 1993  1444.9063           
+808      CHN       GDP     TOT USD_CAP         A 1994  1650.0839           
+809      CHN       GDP     TOT USD_CAP         A 1995  1850.0712           
+810      CHN       GDP     TOT USD_CAP         A 1996  2049.3573           
+811      CHN       GDP     TOT USD_CAP         A 1997  2253.9802           
+812      CHN       GDP     TOT USD_CAP         A 1998  2435.0231           
+813      CHN       GDP     TOT USD_CAP         A 1999  2638.9491           
+814      CHN       GDP     TOT USD_CAP         A 2000  2904.4079           
+815      CHN       GDP     TOT USD_CAP         A 2001  3194.8246           
+816      CHN       GDP     TOT USD_CAP         A 2002  3516.0108           
+817      CHN       GDP     TOT USD_CAP         A 2003  3921.8194           
+818      CHN       GDP     TOT USD_CAP         A 2004  4409.7043           
+819      CHN       GDP     TOT USD_CAP         A 2005  5038.5384           
+820      CHN       GDP     TOT USD_CAP         A 2006  5821.4689           
+821      CHN       GDP     TOT USD_CAP         A 2007  6789.5701           
+822      CHN       GDP     TOT USD_CAP         A 2008  7550.4994           
+823      CHN       GDP     TOT USD_CAP         A 2009  8269.9616           
+824      CHN       GDP     TOT USD_CAP         A 2010  9216.6720           
+825      CHN       GDP     TOT USD_CAP         A 2011 10249.9396           
+826      CHN       GDP     TOT USD_CAP         A 2012 11187.0640           
+827      CHN       GDP     TOT USD_CAP         A 2013 12166.1382           
+828      CHN       GDP     TOT USD_CAP         A 2014 13170.7968           
 > 
 ````
 
