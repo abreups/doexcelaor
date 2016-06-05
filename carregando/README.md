@@ -149,36 +149,71 @@ se parecer com isso:
 
 ![Ambiente com PIB](ambiente_com_pib.png)
 
+A coluna LOCATION possui o nome do país, a coluna
+TIME possui o ano e a coluna Value possui o valor
+do PIB per capta.
+
+As colunas INDICATOR, SUBJECT, MEASURE e FREQUENCY
+informam que o indicador é GDP (isto é, PIB), 
+o valor total do PIB (TOT), a medida do PIB (que
+é PIB per capta) e a frequencia da medida (que é
+anual). A coluna Flag.Codes indica, por exemplo,
+se o valor do PIB é estimado.
+veja, nada disso tem a ver com o R. Esta é a descrição
+dos dados que obtivemos do site da OEDC.
+
+Com a função `class(pib)` você vai ver que nossa variável `pib`
+é do tipo `data.frame` e com o comando `str(pib)` você
+consegue ver a "estrutura" da variável.
+
+
+````r
+> class(pib)
+[1] "data.frame"
+> str(pib)
+'data.frame':	1163 obs. of  8 variables:
+ $ LOCATION  : Factor w/ 50 levels "ARG","AUS","AUT",..: 2 2 2 2 2 2 2 2 2 2 ...
+ $ INDICATOR : Factor w/ 1 level "GDP": 1 1 1 1 1 1 1 1 1 1 ...
+ $ SUBJECT   : Factor w/ 1 level "TOT": 1 1 1 1 1 1 1 1 1 1 ...
+ $ MEASURE   : Factor w/ 1 level "USD_CAP": 1 1 1 1 1 1 1 1 1 1 ...
+ $ FREQUENCY : Factor w/ 1 level "A": 1 1 1 1 1 1 1 1 1 1 ...
+ $ TIME      : int  1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 ...
+ $ Value     : num  17715 18033 19023 20054 21248 ...
+ $ Flag.Codes: Factor w/ 3 levels "","B","E": 1 1 1 1 1 1 1 1 1 1 ...
+> 
+````
+
+O tipo `factor` já vimos: é a "mesma coisa" que o tipo texto,
+mas representa categorias. Veja que, apesar de termos 1163
+linhas, há apenas 50 tipos Factor. Como a coluna LOCATION
+contém o nome do país, significa que temos 50 países
+representados (quer dizer que temos várias linhas por país;
+é meio óbvio, pois cada linha contém o PIB de um determinado
+ano...).
+
+TIME e Value são variáveis numéricas. A diferença entre o tipo
+`int` e o tipo `num` é basicamente o "tamanho do número"
+que cada uma consegue representar (mas isso não é importante
+agora).
+
+Relembrando algumas funções básicas, se quisermos saber
+o maior PIB per capta e o menor PIB per capta, podemos 
+usar as funções `max()` e `min()`, respectivamente (o
+valor do PIB está na coluna `Value`).
+
+````r
+> max(pib$Value)
+[1] 100309.5
+> min(pib$Value)
+[1] 972.9963
+> 
+````
+
 
 
 ### Lendo arquivos csv
 
-Depois que você localizou o arquivo no disco do seu computador, resta então ler o conteúdo do arquivo.
 
-
-
-Para ler arquivos csv basta usar a função 'read.csv()'. Essa função está baseada numa função mais genérica chamada 'read.table()', mas na 'read.csv()' alguns parâmetros já são ajustados para arquivos csv, tais como:
-
-header = TRUE : seu arquivo cvs provavelmente vai ter a primeira linha com os nomes dos campos.
-sep="," : o separador dos campos em cada linha é uma vírgula;  afinal, os campos são separados por vírgula :-)
-Suponha então que você tenha um arquivo bem padrãozinho e bem comportado do tipo csv, como esse: pib1.csv
-
-Ele tem o seguinte conteúdo:
-
-> Pais,PIB,posicao
-> Estados Unidos,14586736,1
-> China,5815501,2
-> Japão,5458836,3
-> Alemanha,3391641,4
-> Franca,2671113,5
-> Brasil,2350889,6
-
-A primeira linha contém os nomes de cada campo (é o 'header'). As outras linhas contém a informação de:
-
-nome do país
-valor do PIB em dólares americanos
-a posição no ranking mundial
-Veja, eu sei tudo isso porque fui eu que criei o arquivo a partir dos dados da Wikipedia. Se você receber um arquivo csv de alguém é muito desejável que você também receba alguma explicação do que é cada campo do arquivo (um outro arquivo contendo essas explicações é conhecido por 'codebook').
 
 Baixe o arquivo pib1.csv para um diretório do seu micro e execute o seguinte código:
 
