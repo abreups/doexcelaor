@@ -411,11 +411,127 @@ faça o raciocínio aí):
 > 
 ````
 
-A SEGUIR:
+### A função `table()`
 
-O QUE PODE DAR ERRADO AO LER UM ARQUIVO CSV.
+
+Quando afirmei na sessão anterior que ao procurarmos o valor do PIB
+máximo obteríamos vários `FALSE` e um `TRUE`, deixei a explicação
+na base da intuição, que seria muita coincidência termos dois
+valores de PIB per capita idênticos. Mas, e se tivéssemos?
+Até nenhum problema, mas dá pra saber de antemão se teremos
+mais de um valor `TRUE`? Obviamente que sim, e uma forma muito
+prática de se fazer isso é usar a função `table()`.
+
+A função é muito simples. Passe como parâmetro para ela alguma
+coisa que possa ser "contada". Por exemplo, se quisermos contar
+quantas vezes o código ISO de cada país aparece na coluna
+`LOCATION` do data frame `pib`, fazemos:
+
+````r
+> table(pib$LOCATION)
+
+  ARG   AUS   AUT   BEL   BRA   CAN   CHE   CHL   CHN   COL   CZE   DEU   DEW   DNK  EA19 
+   11    26    26    26    12    26    26    26    25    14    26    26     2    26    20 
+  ESP   EST  EU28   FIN   FRA   GBR   GRC   HUN   IDN   IND   IRL   ISL   ISR   ITA   JPN 
+   26    23    21    26    26    26    26    25    21     6    26    26    21    26    26 
+  KOR   LTU   LUX   LVA   MEX   NLD   NOR   NZL  OECD OECDE   POL   PRT   RUS   SAU   SVK 
+   26    21    26    21    26    26    26    26    26    26    26    26    19    25    24 
+  SVN   SWE   TUR   USA   ZAF 
+   21    26    26    26    25 
+> 
+````
+
+De cara já dá pra ver que nem todos os países têm a mesma quantidade
+de informações sobre PIB per capita na tabela da OECD.
+
+A função `table()` sempre tenta converter o campo que você
+passa para parâmetro para o tipo `Factor`. Devido ao funcionamento
+interno do R, se você fizer um subconjunto de um data frame
+(como fizemos criando os data frames `chn` e `lux`), o R vai
+"lembrar" de todos os Factors do data frame original, mas vai
+contá-los como "zero" nos data frames derivados.
+
+Então, se dermos como parâmetro para a função `table()` o data
+frame da China (`chn`), veja o que acontece:
+
+```r
+> table(chn$LOCATION)
+
+  ARG   AUS   AUT   BEL   BRA   CAN   CHE   CHL   CHN   COL   CZE   DEU   DEW   DNK  EA19 
+    0     0     0     0     0     0     0     0    25     0     0     0     0     0     0 
+  ESP   EST  EU28   FIN   FRA   GBR   GRC   HUN   IDN   IND   IRL   ISL   ISR   ITA   JPN 
+    0     0     0     0     0     0     0     0     0     0     0     0     0     0     0 
+  KOR   LTU   LUX   LVA   MEX   NLD   NOR   NZL  OECD OECDE   POL   PRT   RUS   SAU   SVK 
+    0     0     0     0     0     0     0     0     0     0     0     0     0     0     0 
+  SVN   SWE   TUR   USA   ZAF 
+    0     0     0     0     0 
+> 
+````
+
+Todos os países que não são `CHN` tem contagem zero, e a China tem 
+25 observações (linhas).
+
+Diz o ditado popular que "o que abunda não prejudica". Então não é
+que esteja "errado" o que o R está fazendo, mas certamente há situações
+onde não precisamos de tudo isso. Vamos então "descartar" (*to drop*,
+em versão livre para Inglês) todos os *levels* (`level` é o nome
+que o R dá para a quantidade de "categorias" que ele encontrou
+para o tipo `Factor`) que não existem mais no novo data frame (o que
+derivamos do data frame maior -- o que tinha mais * levels*). Estou 
+explicando desta forma porque aí o nome da função fica fácil de 
+lembrar: `droplevels()`:
+
+````r
+> chn <- droplevels(chn)
+> 
+````
+
+O que fizemos foi "dropar todos os levels zerados" (minha nossa!)
+e guardar o resultado de novo na variável `chn`.
+
+Parece que nada aconteceu, mas agora vamos usar a função `table()`
+novamente:
+
+````r
+> table(chn$LOCATION)
+
+CHN 
+ 25 
+> 
+````
+
+Pronto. Ficou bem mais fácil de ver quantas observações (linhas) de
+`CHN` temos no data frame da China.
+
+Voltando então à questão dos `FALSE` e `TRUE`.
+`pib$Value == max(pib$Value)` nos devolvia
+um monte de `FALSE` e `TRUE`. Portanto, para contarmos
+quantos temos de cada um deles, vamos passar esse resultado
+diretamente para a função `table()`:
+
+````r
+> table( pib$Value == max(pib$Value) )
+
+FALSE  TRUE 
+ 1162     1 
+> 
+````
+
+Olha lá! Só um `TRUE`.
+
+A função `table()` é uma "mão na roda" e vamos utilizá-la
+muito tanto para fazer esse tipo de investigação rápida
+como para criar tabelas para usarmos em relatórios.
+
+## O que pode dar "errado" ao se ler um arquivo csv
+
 
 (LINHAS ANTES DO CABEÇALHO E SEP DIFERENTE DE VÍRGULA)
+`
+
+A SEGUIR:
+
+
 
 
 COMO SALVAR UM ARQUIVO CSV
