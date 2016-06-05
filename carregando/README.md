@@ -1,7 +1,7 @@
 No capítulo "Operações Básicas" vimos como criar um data frame
 na linha de comando, digitando todos os valores para cada
 coluna do data frame. Isso é útil quando temos uma quantidade 
-relativamente pequena de dados, mas na esmagadora maioria dos 
+relativamente pequena de dados, mas na maioria dos 
 casos vamos trabalhar com "tabelas" que têm dezenas
 de colunas e possivelmente milhares de linhas. Ninguém
 espera ter que digitar isso tudo, ao contrário, você vai
@@ -13,20 +13,50 @@ o R pode ler diretamente planilhas Excel.
 
 Vamos começar com um tipo de arquivo muito comum e popular
 para se compartilhas dados: arquivos "csv" (comma separated
-values).
+values). Se você é um usuário de planilhas provavelmente
+já se deparou com arquivos csv. Esse tipo de arquivo
+é muito popular para se compartilhar dados entre diferentes
+sistemas operacionais (Unix, Linux, Mac, Windows)
+pois, por conter apenas texto,
+pode ser entendido praticamente por qualquer máquina.
+
+Se você procurar por dados abertos na Internet vai encontrar
+muita coisa que pode ser baixada em formato csv.
+Por exemplo, no site da OECD
+(https://data.oecd.org/gdp/gross-domestic-product-gdp.htm)
+você encontra dados do PIB de vários países ao longo 
+de muitos anos.
+
+Vamos usar os dados de *PIB per capta* de 1990 a 2015 de todos os
+países disponíveis. Por via das dúvidas, baixei esse arquivo
+no dia 4 de junho de 2016 e ele está disponível aqui:
+
+https://raw.githubusercontent.com/abreups/doexcelaor/master/dados/DP_LIVE_05062016020028091.csv
+
+Baixe esse arquivo e salve em um diretório conhecido do seu
+computador. No meu caso ele está salvo no meu Desktop.
+O "diretório" (ou pasta) no meu computador é (estou usando
+um Mac):
+````r
+/Users/pauloabreu/Desktop
+````
+
+Muito bem. Para lermos este arquivo para dentro do R usamos 
+a função `read.csv()`.
+
+Se você der uma olhadinha no help dessa função você verá que
+ela aceita alguns parâmetros:
+
+
+![read.csv()](read.csv.png)
+
 
 
 ### Lendo arquivos csv
 
 Depois que você localizou o arquivo no disco do seu computador, resta então ler o conteúdo do arquivo.
 
-Alguns formatos de arquivo contendo dados são mais populares que outros. Dentre os mais comuns temos:
 
-csv: comma separated values (valores separados por vírgula). Por ser um formato que usa "texto puro" é compreendido por muitos sistemas de computadores (Windows, Unix, Mac, etc).
-xls e xlsx: para os amantes de planilhas Excel, muito comum hoje em dia.
-É claro que a lista é muito maior que isso, mas vou ficar por aqui porque com estes formatos já dá pra fazer muita coisa com o R.
-
-Neste post vou explorar o tema de leitura de arquivos csv (falarei de planilhas Excel em outro post futuro).
 
 Para ler arquivos csv basta usar a função 'read.csv()'. Essa função está baseada numa função mais genérica chamada 'read.table()', mas na 'read.csv()' alguns parâmetros já são ajustados para arquivos csv, tais como:
 
