@@ -1,3 +1,5 @@
+# Carregando um arquivo no R
+
 No capítulo "Operações Básicas" vimos como criar um data frame
 na linha de comando, digitando todos os valores para cada
 coluna do data frame. Isso é útil quando temos uma quantidade 
@@ -411,7 +413,7 @@ faça o raciocínio aí):
 > 
 ````
 
-### A função `table()`
+## A função `table()`
 
 
 Quando afirmei na sessão anterior que ao procurarmos o valor do PIB
