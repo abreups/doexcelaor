@@ -418,7 +418,7 @@ Quando afirmei na sessão anterior que ao procurarmos o valor do PIB
 máximo obteríamos vários `FALSE` e um `TRUE`, deixei a explicação
 na base da intuição, que seria muita coincidência termos dois
 valores de PIB per capita idênticos. Mas, e se tivéssemos?
-Até nenhum problema, mas dá pra saber de antemão se teremos
+Até aí nenhum problema, mas dá pra saber de antemão se teremos
 mais de um valor `TRUE`? Obviamente que sim, e uma forma muito
 prática de se fazer isso é usar a função `table()`.
 
@@ -442,10 +442,10 @@ quantas vezes o código ISO de cada país aparece na coluna
 ````
 
 De cara já dá pra ver que nem todos os países têm a mesma quantidade
-de informações sobre PIB per capita na tabela da OECD.
+de informações (linhas para todos os anos) sobre PIB per capita na tabela da OECD.
 
 A função `table()` sempre tenta converter o campo que você
-passa para parâmetro para o tipo `Factor`. Devido ao funcionamento
+passa como parâmetro para o tipo `Factor`. Devido ao funcionamento
 interno do R, se você fizer um subconjunto de um data frame
 (como fizemos criando os data frames `chn` e `lux`), o R vai
 "lembrar" de todos os Factors do data frame original, mas vai
@@ -477,7 +477,7 @@ onde não precisamos de tudo isso. Vamos então "descartar" (*to drop*,
 em versão livre para Inglês) todos os *levels* (`level` é o nome
 que o R dá para a quantidade de "categorias" que ele encontrou
 para o tipo `Factor`) que não existem mais no novo data frame (o que
-derivamos do data frame maior -- o que tinha mais * levels*). Estou 
+derivamos do data frame maior -- o que tinha mais *levels*). Estou 
 explicando desta forma porque aí o nome da função fica fácil de 
 lembrar: `droplevels()`:
 
@@ -486,8 +486,10 @@ lembrar: `droplevels()`:
 > 
 ````
 
-O que fizemos foi "dropar todos os levels zerados" (minha nossa!)
-e guardar o resultado de novo na variável `chn`.
+O que fizemos foi "dropar todos os levels zerados" (e assassinar
+a língua Portuguesa com essa frase) 
+do data frame `chn` e guardar o resultado de novo na variável `chn`
+(ou seja, sobrescrevemos a variável `chn` com um novo valor).
 
 Parece que nada aconteceu, mas agora vamos usar a função `table()`
 novamente:
@@ -504,6 +506,7 @@ Pronto. Ficou bem mais fácil de ver quantas observações (linhas) de
 `CHN` temos no data frame da China.
 
 Voltando então à questão dos `FALSE` e `TRUE`.
+
 `pib$Value == max(pib$Value)` nos devolvia
 um monte de `FALSE` e `TRUE`. Portanto, para contarmos
 quantos temos de cada um deles, vamos passar esse resultado
@@ -520,7 +523,7 @@ FALSE  TRUE
 Olha lá! Só um `TRUE`.
 
 A função `table()` é uma "mão na roda" e vamos utilizá-la
-muito tanto para fazer esse tipo de investigação rápida
+muito, tanto para fazer esse tipo de investigação rápida
 como para criar tabelas para usarmos em relatórios.
 
 ## O que pode dar "errado" ao se ler um arquivo csv
@@ -623,6 +626,7 @@ Pode ser que seu arquivo csv tenha também algumas linhas no final que você que
 
 ### Passando um nome de arquivo de forma dinâmica.
 
+COLOCAR ESSA PARTE NUM CAPÍTULO CHAMADO "SCRIPTS"
 
 Durante a execução do código você quer poder navegar até o diretório onde está o arquivo e selecioná-lo.
 
