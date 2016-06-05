@@ -50,6 +50,105 @@ ela aceita alguns parâmetros:
 
 ![read.csv()](read.csv.png)
 
+Peraí! Mas por que no help da função `read.csv()` tem essa função
+`read.table()`?
+
+Bem, porque a função `read.csv()` é "a mesma coisa" que a função 
+`read.table()` só que alguns parâmetros passados para a 
+função já estão pré-definidos. Por exemplo, como o próprio
+nome diz, um arquivo csv tem os dados separados por vírgula,
+certo? Então, o parâmetro `sep` na função `read.table()`
+está definido como "vazio" (`sep = ""`); já na função 
+`read.csv()` ele está definido como `sep = ","`, isto
+é, o caracter que separa os dados é uma vírgula.
+
+Outra coisa: num arquivo csv "bem comportado" a primeira
+linha do arquivo costuma ser o cabeçalho, certo? É
+a linha que tem os "nomes das colunas". Essa primeira
+linha é o "header". Veja que na função `read.table()`
+o header está definido como `FALSE`, ou seja, o *default*
+é que não tem header. Já na função `read.csv()` ele está
+definido como `header = TRUE`: sim, há um cabeçalho.
+
+OK, passado o susto, veja que o primeiro parâmetro
+a ser passado para a função é `file`, ou seja,
+o nome do arquivo (com o caminho para encontrá-lo).
+
+Quando você passa parâmetros para uma função do R
+você pode colocar o parâmetro na mesma sequencia
+que o help indica ou dizer explicitamente qual
+parâmetro você está passando.
+
+Por exemplo, podemos usar a função `read.csv()` assim:
+
+````r
+read.csv("nome_do_arquivo.csv")
+````
+
+ou assim:
+
+````r
+read.csv(file = "nome_do_arquivo.csv")
+````
+
+Pode parecer meio besta usar a segunda forma já
+que a primeira funciona, mas se você quiser
+especificar que o separador de dados não é uma
+vírgula mas, por exemplo, uma barra vertical `|`,
+é mais fácil (e seguro) usar o nome do parâmetro
+do que ficar contando qual a posição dele na
+lista de parâmetros (eu particularmente nunca fiz isso).
+Na prática você vai fazer assim:
+
+````r
+read.csv(file = "nome_do_arquivo.csv", sep="|")
+````
+
+e veja que assim també é válido:
+
+````r
+read.csv(sep="|", file = "nome_do_arquivo.csv")
+````
+
+pois a função `read.csv()` vai saber exatamente o que
+é cada coisa que você está passando para ela.
+
+Chega de conversa e vamos carregar o arquivo.
+Digite o comando comando
+
+````r
+read.csv(file = "/Users/pauloabreu/Desktop/DP_LIVE_05062016020028091.csv")
+````
+
+e veja o que acontece.
+
+Provavelmente você viu um monte de letras e números
+passando pela tela da console até parar com o 
+prompt `> `. Que foi isso?
+
+O comando `read.csv()` foi lá onde você indicou, leu
+o arquivo e listou na tela da console o arquivo
+inteiro.
+
+Ah, mas peraí. Queremos guardar os dados do arquivo
+para usar depois! Vamos então guardar os resultado
+do comando numa variável! Quer tal, `pib`:
+
+````r
+pib <- read.csv(file = "/Users/pauloabreu/Desktop/DP_LIVE_05062016020028091.csv")
+````
+
+Execute o comando e repare que a variável `pib` tem 
+1163 observações (linhas) e 8 variáveis (colunas).
+
+Clique no nome da variável `pib` lá na área
+de "Environment" no canto superior direito e você
+verá uma prévia dessa variável no canto superior
+esquerdo da janela do R Studio. Seu ambiente deve
+se parecer com isso:
+
+![Ambiente com PIB](ambiente_com_pib.png)
+
 
 
 ### Lendo arquivos csv
