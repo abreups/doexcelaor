@@ -20,17 +20,19 @@ Versão: 0.1
 
 ## [Capítulo 5 - Fazendo Filtros](cap5)
 
-## Capítulo 6 - Fazendo Gráficos
+## [Capítulo 6 - R scripts](scripts)
 
-## Capítulo 7 - Fazendo Tabelas Pivô
+## Capítulo 7 - Fazendo Gráficos
 
-## Capítulo 8 - Fazendo Relatórios
+## Capítulo 8 - Fazendo Tabelas Pivô
 
-## [Capítulo 9 - Fazendo Mapas](cap8)
+## Capítulo 9 - Fazendo Relatórios
 
-## Capítulo 10 - Fazendo Aplicações Dinâmicas
+## [Capítulo 10 - Fazendo Mapas](cap8)
 
-## Capítulo 11 - Coleção de Exemplos
+## Capítulo 11 - Fazendo Aplicações Dinâmicas
+
+## Capítulo 12 - Coleção de Exemplos
 
 
 
