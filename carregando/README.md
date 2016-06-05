@@ -237,14 +237,14 @@ Excel. :-)
 
 1. Achar o PIB máximo você sabe, certo? É só usar a função
 `max()` e passar a coluna onde estão os PIBs, que é
-a coluna `Value` da nossa variável `PIB`. Portanto:
+a coluna `Value` da nossa variável `pib`. Portanto:
 `max(pib$Value)`. Se você fizer só isso você vai 
 obter um número (que é o valor máximo de PIB encontrado
 na coluna. No caso, `100309.5`). Digite o comando
 pra ver o resultado.
 
 2. Agora você quer saber em qual linha está esse valor.
-Então pensa assim: "o valor não é `100309.5`. O valor
+Então pense assim: "o valor não é `100309.5`. O valor
 é `max(pib$Value)`".
 
 3. Onde é que `pib$Value` (que é a coluna inteira
@@ -258,7 +258,8 @@ que tenhamos exatamente o mesmo valor numérico
 em mais de uma linha. Haja coincidência, não?).
 Digite esse comando para ver o resultado (na dúvida
 faça sempre isso. Vá digitando os comandos pra ver
-o que acontece).
+o que acontece. Use a seta para cima do teclado
+ para economizar digitação!).
 
 5. Se o comando anterior é um monte de `FALSE` e
 `TRUE`, então basta colocá-lo como parâmetro de 
@@ -277,13 +278,22 @@ com o comando mais de dentro e vou colocando o sinal
 de `==`, depois os colchetes, até chegar no comando final.
 Fica a dica!
 
-
-
-
+Passado o ataque de pânico, voltemos à análise dos dados.
 
 Como os dados de PIB vão de 1990 até 2015, vemos que em 2015
-Luxemburgo estava no topo da lista e em 1990 a China está
-na posição "mais baixa".
+Luxemburgo estava "no topo da lista" e em 1990 a China estava
+"no fundo do poço".
+
+> Uma paradinha rápida para umas continhas. Estamos
+> lidando com "PIB per capta", ou seja, por habitante.
+> A China tinha aproximadamente uns 9 billhões de
+> habitantes em 1990 e Luxemburgo uns 500 mil.
+> Multiplicando o PIB per capta pela quantidade de
+> habitantes vemos que o PIB da China em 1990 era
+> de mais ou menos 8 bilhões de dólares enquanto
+> o PIB de Luxemburgo em 2015 era de mais ou menos
+> 50 bilhões de dólares.
+
 
 Mas como será o histórico do PIB de Luxemburgo e da China?
 Ano após ano?
